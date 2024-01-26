@@ -20,23 +20,19 @@
 <img src='../assets/mastercard.png' id='cards-1'> <img src='../assets/maestro.png' id='cards-2'> <img src='../assets/visa.png' id='cards-3'>
 
 </div>
-<br><br>
-<div class='client'>
+<br>
+
+
 <img src='../assets/executive.JPG' id='execute'>
 
 <div class='writing'>
+
   <p id='red'>BUILDING CONNECTIONS</p>
   <h3 id='person'>Personalized Client Interactions</h3>
-  <p id='person-text'> By embracing on individualized approach, businesses can <br>forge deeper Conections with their clients</p>
+  <p id='person-text'> By embracing on individualized approach, businesses can <br>
+  forge deeper Conections with their clients</p>
+
 </div>
-</div>
-
-
-
-
-
-
-
 </template>
 
 
