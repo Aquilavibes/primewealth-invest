@@ -1,16 +1,17 @@
 <template>
   <header>
-<h1 id='logo'> Nova Tech </h1>
+<h1 id='logo'> NOVA </h1>
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/#">product</RouterLink>
-        <RouterLink to="/#">pricing</RouterLink>
-        <RouterLink to="/#">resources</RouterLink>
+        <RouterLink to="/#">Product</RouterLink>
+        <RouterLink to="/#">Services</RouterLink>
+        <RouterLink to="/#">Pricing</RouterLink>
+        <RouterLink to="/#">About Us</RouterLink>
         
       </nav>
-<RouterLink to="/#">Login</RouterLink>
-      <button> Try MycaseFree </button>
-  
+
+      <button>Contact Us</button>
+
 </header>
   <RouterView />
 </template>
@@ -28,7 +29,7 @@ import { RouterLink, RouterView } from 'vue-router'
 button {
   margin-top: 5px;
   height: 33px;
-  width: 200px;
+  width: 230x;
   background-color: blue;
   border-radius: 20px;
   color: white;
@@ -40,6 +41,8 @@ button {
   margin-top: -5px;
   margin-right: 50px;
   color: blue;
+  font-size: 30px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 header {
@@ -50,7 +53,7 @@ header {
 }
 
 nav {
-  font-size: 12px;
+  font-size: 15px;
   display: flex;
   gap: 28px;
   margin-left: 200px;
