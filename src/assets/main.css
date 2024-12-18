@@ -1,35 +1,87 @@
-@import './base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+#contact {
+  margin-top: 5px;
+  height: 33px;
+  width: 230x;
+  background-color: black;
+  border-radius: 20px;
+  color: white;
+  
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+
+#logo {
+  margin-top: -5px;
+  margin-right: 50px;
+  color: black;
+  font-size: 30px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+header {
+  line-height: 1.5;
+  max-height: 100vh;
+  display: flex;
+  justify-content: space-evenly; 
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+nav {
+  font-size: 15px;
+  display: flex;
+  gap: 28px;
+  margin-left: 200px;
+  color: black;
 }
+
+
+
+
+nav a.router-link-exact-active {
+   height: 25px;
+}
+
+nav a.router-link-exact-active:hover {
+  background-color: rgba(0,0,0,0.5);
+}
+
+
+nav a {
+  color: black;
+  display: inline-block;
+  font-size: 15px;
+  text-decoration-line: none;
+  margin-top: 300px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+header a {
+  margin-top: 10px;
+  text-decoration-line: none;
+  color: black;
+}
+
+header a.router-link-exact-active:hover {
+  background-color: rgba(0,0,0,0.5);
+  height: 30px;
+}
+
+nav a:first-of-type {
+  border: 0;
+}
+
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+ 
+ 
+}
+
+
+
+
+
+
+

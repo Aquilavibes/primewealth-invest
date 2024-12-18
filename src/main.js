@@ -1,10 +1,17 @@
+//main.js
 
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from 'vue';
+import './assets/main.css';
+import App from './App.vue';
+import router from './router';
+import './index.css'
 
-const app = createApp(App)
 
-app.use(router)
+// Create Vue app instance
+const app = createApp(App);
 
-app.mount('#app')
+app.use(router);
+
+app.mount('#app');
+
+// Export Firebase services for use in other part

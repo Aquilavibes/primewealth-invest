@@ -1,149 +1,67 @@
 <template>
+<div class="min-h-screen flex items-center justify-center bg-blue-50 px-4">
+    <!-- Container -->
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md sm:max-w-sm lg:max-w-lg">
+      <!-- Header -->
+      <h1 class="text-2xl font-semibold text-blue-600 text-center mb-6">
+        Access Code Login
+      </h1>
 
-  <div class='homy'>
+      <!-- Form -->
+      <form @submit.prevent="handleRoute">
+        <!-- Access Code Input -->
+        <div class="mb-4">
+          <label for="accessCode" class="block text-sm font-medium text-gray-700 mb-2">
+            Access Code
+          </label>
+          <input
+            type="text"
+            id="accessCode"
+            v-model="accessCode"
+            placeholder="Enter your access code"
+            class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
 
- <p id='cases'>{{cases}} </p>
-
-<h1 id='intro'>Nova Tech for Easy, P2p Buying <br>and Selling Of goods <br>and services.</h1>
-
-<p id='tiny-text'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem quis ut<br>Lorem ipsum dolor, sit amet consectetur adipisicing<br>Lorem ipsum dolor, sit amet consectetur quo</p>
- <br>
- <button id='get-started'> Get Started > </button>
-
-<img src='../assets/money.png' id='first-img'>
-
-</div>
-<br>
-<h2 id='support-text'>We support different financial solutions.</h2>
-
-<div class='support-flex'>
-<img src='../assets/mastercard.png' id='cards-1'> <img src='../assets/maestro.png' id='cards-2'> <img src='../assets/visa.png' id='cards-3'>
-
-</div>
-<br>
-
-
-<img src='../assets/executive.JPG' id='execute'>
-
-<div class='writing'>
-
-  <p id='red'>BUILDING CONNECTIONS</p>
-  <h3 id='person'>Personalized Client Interactions</h3>
-  <p id='person-text'> By embracing on individualized approach, businesses can <br>
-  forge deeper Conections with their clients</p>
-
-</div>
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
 </template>
+<script setup>
+import { ref } from 'vue';
+import { useRouter}  from 'vue-router'
+const errMsg = ref('')
+const accessCode = ref('')
+const route = useRouter()
 
-
-<script>
-
-export default {
-data(){
-  return {
-    cases: 'CASES FOR PEAK EFFICIENCY.',
-     
+const handleRoute = () => {
+  if (accessCode.value == '1964') {
+    route.push('/login')
+  } else {
+    errMsg.value = 'Wrong access code'
+    route.push('/')
   }
 }
-}
+
 </script>
 
 <style scoped>
-
-#person-text {
-  font-size: 15px;
-  margin-top: -20px;
-}
-
-#person {
-  font-size: 30px;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin-top: -15px;
-}
-
-.writing {
-  margin-left: 700px;
-  margin-top: -330px;
-  
-}
-
-#red {
-color: orange;
-
+#errMsg {
+    background-color: rgb(219, 114, 114);
+    width: 230px;
+    height: 25px;
+    border-radius: 5px;
+    padding-top: 10px;
+    
 }
 
 
-#execute {
-  width: 450px;
-  border-radius: 20px;
-  margin-left: 130px;
-  height: 300px;
-}
 
-.support-flex {
-  display: flex;
-  margin-left: 300px;
-  gap: 10%;
-}
-
-#cards-1 {
-  width: 200px;
-  height: 150px;
-  margin-top: -25px;
-  
-}
-#cards-2 {
-  width: 150px;
-  height: 100px;
-  
-}
-#cards-3 {
-  width: 150px;
-  height: 100px;
-  
-}
-
-#support-text {
-  text-align: center;
-  font-size: 30px;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-#get-started {
-  background-color: blue;
-  color: white;
-  width: 130px;
-  height: 40px;
-  margin-left: 130px;
-  border-radius: 20px;
-  margin-top: -10px;
-  
-  
-}
-
-
-#first-img {
-  width: 500px;
-  margin-left: 800px;
-  margin-top: -500px;
-}
-
-#tiny-text {
-font-size: 15px;
-margin-left: 130px;
-font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-#intro {
-  margin-left: 130px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 50px;
-}
-
-#cases {
-  color: orange;
-  margin-top: 80px;
-  margin-left: 130px;
-}
 </style>
-

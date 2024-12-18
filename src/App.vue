@@ -1,100 +1,57 @@
 <template>
-  <header>
-<h1 id='logo'> NOVA </h1>
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/#">Product</RouterLink>
-        <RouterLink to="/#">Services</RouterLink>
-        <RouterLink to="/#">Pricing</RouterLink>
-        <RouterLink to="/#">About Us</RouterLink>
-        
-      </nav>
-
-      <button>Contact Us</button>
-
-</header>
+ 
   <RouterView />
 </template>
 
 
 
 <script>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
+
+export default {
+  
+  }
 
 </script>
 
 
-<style scoped>
-
-button {
-  margin-top: 5px;
-  height: 33px;
-  width: 230x;
-  background-color: blue;
-  border-radius: 20px;
-  color: white;
-  
-}
+<style>
 
 
+/*mobile view 1 */
+@media only screen and (max-width: 600px) {
+ 
 #logo {
-  margin-top: -5px;
-  margin-right: 50px;
-  color: blue;
-  font-size: 30px;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  margin-left: -20px;
 }
 
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-  display: flex;
-  justify-content: space-evenly; 
+#contact {
+margin-left: -20px;
 }
 
 nav {
-  font-size: 15px;
-  display: flex;
-  gap: 28px;
-  margin-left: 200px;
-  color: black;
+  margin-left: 10px;
+}
+  #intro {
+    font-size: 30px;
+    
+  }
+  #first-img {
+    margin-left: 550px;
+    width: 300px;
+   }
+
+   header {
+    margin-left: 30px;
+   }
+
+   #tiny-text {
+     font-size: 13px;
+   }
+
+   
 }
 
-
-
-
-nav a.router-link-exact-active {
-   height: 25px;
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: rgba(0,0,0,0.5);
-}
-
-
-nav a {
-  color: black;
-  display: inline-block;
-  font-size: 15px;
-  text-decoration-line: none;
-  margin-top: 300px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-header a {
-  margin-top: 10px;
-  text-decoration-line: none;
-  color: black;
-}
-
-header a.router-link-exact-active:hover {
-  background-color: rgba(0,0,0,0.5);
-  height: 30px;
-}
-
-nav a:first-of-type {
-  border: 0;
-}
 
 
 
