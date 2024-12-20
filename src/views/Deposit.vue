@@ -14,30 +14,57 @@ v-if='isNavOpen'
 <hr>
 <p id='type'>Wallet type:{{type}} </p>
 <p id='address'>Wallet Address:{{address}}</p>
-<p id='amount'>Amount to send: ${{amount}}</p>
-<button @click='handleDeposit'>I have sent it</button>
+<p id='amount'>Amount to send: ${{amountt}}</p>
+<button @click='handleDeposited'>I have sent it</button>
     </div>
 </Addresses>
 
-    <div class='deposit-cont'>
-<p id='make-depo'>Make a Deposit
-</p>
-<hr>
-<p id='minimum-depo'>Your Minimum deposit is $200.00</p>
+   <div class="min-h-screen flex items-center justify-center bg-blue-50">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+      <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Make a Deposit</h2>
+      
+      <hr class="mb-6">
 
-<form @submit.prevent='handleSubmit'>
-<label for='input-amnt'>Amount</label><br>
-<input type='number' id='input-amnt' placeholder='Input Amount In USD' v-model='amount'><br>
-<label for='crypto-pref'>Preferred Crypto</label><br>
-<select id='crypto-pref' required>
-<option id='crypt-1' @click='toggleBtc'> Bitcoin </option>
-<option id='crypt-2' @click='toggleUsdt'>USDT</option>
-<option id='crypt-3' @click='toggleEth'>Ethereum</option>
+      <p class="text-sm text-gray-600 text-center mb-6">Your minimum deposit is <span class="font-semibold text-blue-600">$200.00</span></p>
 
-</select> <br><br>
-<button type='submit' id='deposit-btn'>Deposit</button>
-</form>
+      <form @submit.prevent="handleDeposit">
+        <!-- Amount Input -->
+        <div class="mb-4">
+          <label for="input-amnt" class="block text-sm font-medium text-gray-700">Amount (USD)</label>
+          <input
+            type="number"
+            id="input-amnt"
+            v-model="amountt"
+            placeholder="Input Amount in USD"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <!-- Crypto Preference -->
+        <div class="mb-6">
+          <label for="crypto-pref" class="block text-sm font-medium text-gray-700">Preferred Crypto</label>
+          <select
+            id="crypto-pref"
+            v-model="crypto"
+            required
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="bitcoin">Bitcoin</option>
+            <option value="usdt">USDT</option>
+            <option value="ethereum">Ethereum</option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg"
+        >
+          Deposit
+        </button>
+      </form>
     </div>
+  </div>
 </template>
 
 <script setup>
@@ -87,8 +114,24 @@ function handleSubmit (){
 
 const amountt = ref("");
 
-    const handleDeposit = async () => {
-      try {
+    const handleDeposit = () => {
+
+
+ if (amountt.value < 200) {
+        alert("Minimum deposit is $200.00.");
+        return;
+      }
+      // Handle deposit logic here
+      console.log({
+        amount: amount.value,
+        crypto: crypto.value
+      });
+      showAddress.value = true
+
+    };
+
+const handleDeposited = async () => {
+  try {
         const auth = getAuth(); // Firebase Auth instance
         const user = auth.currentUser;
 
@@ -113,81 +156,10 @@ const amountt = ref("");
         console.error("Error adding deposit: ", error);
         alert("Failed to process deposit. Please try again.");
       }
-    };
-
+}
 
 
 
    
 </script>
 
-<style scoped>
-.address-cont {
-    background-color: white;
-    color: black;
-    position: fixed;
-    width: 400px;
-    height: 300px;
-}
-#deposit-btn {
-    width: 900px;
-    margin-left: 3px;
-    height: 40px;
-    font-size: 16px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: blue;
-    color: white;
-    border-radius: 20px;
-}
-
-
-form {
-    margin-left: 50px;
-}
-select{
-    width: 900px;
-height: 55px;
-font-size: 18px;
-
-}
-input {
-width: 900px;
-height: 55px;
-font-size: 18px;
-}
-
-#minimum-depo {
-    background-color: rgb(235, 183, 124);
-        margin-left: 50px;
-        height: 40px;
-        width: 850px;
-        border-radius: 5px;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        padding-left: 40px;
-        padding-top: 20px;
-}
-.deposit-cont {
-    margin-top: 70px;
-    margin-left: 200px;
-    width: 1000px;
-    height: 370px;
-    border-radius: 5px;
-    box-shadow: #050505 0px 0px 3px;
-    padding-top: 50px;
-    
-}
-
-label {
-    font-size: 20px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-#make-depo {
-    font-size: 16px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-top: -20px;
-    margin-left: 50px;
-}
-
-
-</style>
