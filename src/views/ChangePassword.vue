@@ -8,40 +8,121 @@
     <Sidebar
 v-if='isNavOpen'
 />
-    <div class='change-cont'>
-<p id='change-txt'>Change Password</p>
-<hr>
-<form>
-    <label for='input-old'>Old Password</label><br>
-    <input type='password' id='input-old'><br>
+  <div class="min-h-screen flex items-center justify-center bg-blue-50">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+      <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Reset Password</h2>
 
-    <label for='new-pass'> New password</label><br>
-        <input type='password' id='new-pass'><br>
+      <form @submit.prevent="handleChangePassword">
+        <!-- Old Password -->
+        <div class="mb-4">
+          <label for="old-password" class="block text-sm font-medium text-gray-700">Old Password</label>
+          <input
+            type="password"
+            id="old-password"
+            v-model="oldPassword"
+            placeholder="Enter your old password"
+            class="sm:w-10 lg:w-13 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
 
-         <label for='confirm-pass'>Confirm new password</label><br>
-        <input type='password' id='confirm-pass'><br><br>
-        <button id='change-btn'>Change password</button>
-    </form>
+        <!-- Confirm Old Password -->
+        <div class="mb-4">
+          <label for="confirm-old-password" class="block text-sm font-medium text-gray-700">Confirm Old Password</label>
+          <input
+            type="password"
+            id="confirm-old-password"
+            v-model="confirmOldPassword"
+            placeholder="Re-enter your old password"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <!-- New Password -->
+        <div class="mb-6">
+          <label for="new-password" class="block text-sm font-medium text-gray-700">New Password</label>
+          <input
+            type="password"
+            id="new-password"
+            v-model="newPassword"
+            placeholder="Enter your new password"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg"
+        >
+          Change Password
+        </button>
+      </form>
     </div>
+  </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
 import { ref } from 'vue'
+import { getAuth, reauthenticateWithCredential, updatePassword, EmailAuthProvider } from "firebase/auth";
+
 export default {
     components: {Navbar, Sidebar},
     setup () {
+    const oldPassword = ref("");
+    const confirmOldPassword = ref("");
+    const newPassword = ref("");
+
          const isNavOpen = ref(false)
 function openModal(){
   isNavOpen.value = !isNavOpen.value;
 }
-        return {isNavOpen, openModal}
+
+ const handleChangePassword = async () => {
+      if (oldPassword.value !== confirmOldPassword.value) {
+        alert("Old password and confirmation do not match.");
+        return;
+      }
+      if (newPassword.value.length < 6) {
+        alert("New password must be at least 6 characters long.");
+        return;
+      }
+
+      try {
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (!user) {
+          alert("No user is currently logged in.");
+          return;
+        }
+
+        // Reauthenticate the user with the old password
+        const credential = EmailAuthProvider.credential(user.email, oldPassword.value);
+        await reauthenticateWithCredential(user, credential);
+
+        // Update the password
+        await updatePassword(user, newPassword.value);
+        alert("Password successfully updated!");
+      } catch (error) {
+        console.error("Error updating password:", error);
+        alert("Failed to update password. Please check your old password and try again.");
+      }
+    };
+        return {isNavOpen, openModal, oldPassword,
+      confirmOldPassword,
+      newPassword,
+      handleChangePassword,}
     }
 }
 </script>
 
 <style scoped>
+header {
+display: flex;
+margin-top: 20px;
+gap: 80%;
+}
 input {
 width: 900px;
 height: 55px;

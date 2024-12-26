@@ -6,7 +6,7 @@
   <RouterLink to='/deposit'><p id='Deposit'> Deposit</p></RouterLink>
    <RouterLink to='/withdraw'><p id='withdraw'>Withdraw</p></RouterLink>
    <RouterLink to='/history'><p id='history'> History</p></RouterLink>
-   <p id='ai-bot'>AI Trading Bot</p>
+   <RouterLink to='aitrading'><p id='ai-bot'>Buy AI trading bot</p></RouterLink>
    <RouterLink to='/changepassword'><p id='change-pass'> Change Password </p></RouterLink>
       
   </div>
@@ -46,14 +46,20 @@ export default defineComponent ({
 
 <style scoped>
 p {
-  color: white;
+  color: black;
+  text-align: center;
+  font-size: 15px;
+  margin-top: 20px;
 }
 .sidebar {
-  background-color: black;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: #000 0px 0px 10px;
   margin-left: 50px;
   margin-top: -10px;
-  width:  250px;
+  width:  200px;
   height: 300px;
   position: fixed;
+  gap: 30%;
 }
 </style>

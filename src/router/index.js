@@ -7,6 +7,7 @@ import Withdraw from '../views/Withdraw.vue'
 import Deposit from '../views/Deposit.vue'
 import ChangePassword from '../views/ChangePassword.vue'
 import History from '../views/History.vue'
+import AiTrading from '../views/AiTrading.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,6 +60,11 @@ const router = createRouter({
       path: '/history',
       name: 'history',
       component: History
+    },
+    {
+      path: '/aitrading',
+      name: 'aitrading',
+      component: AiTrading
     }
   ]
 })

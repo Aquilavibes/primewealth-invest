@@ -8,16 +8,7 @@
 <Sidebar
 v-if='isNavOpen'
 />
-<Addresses v-if="showAddress">
-<div class='address-cont'>
-<p id='makee'>Make a deposit</p>
-<hr>
-<p id='type'>Wallet type:{{type}} </p>
-<p id='address'>Wallet Address:{{address}}</p>
-<p id='amount'>Amount to send: ${{amountt}}</p>
-<button @click='handleDeposited'>I have sent it</button>
-    </div>
-</Addresses>
+
 
    <div class="min-h-screen flex items-center justify-center bg-blue-50">
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
@@ -64,7 +55,31 @@ v-if='isNavOpen'
         </button>
       </form>
     </div>
+    <div
+      v-if="showAddress"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-lg p-8 w-full max-w-sm shadow-lg">
+        <h3 class="text-lg font-bold text-center text-blue-600 mb-4">Confirm Deposit</h3>
+        <p class="text-sm text-gray-700 mb-4">
+          <span class="font-semibold">Amount:</span> ${{ amountt }}
+        </p>
+        <p class="text-sm text-gray-700 mb-4">
+          <span class="font-semibold">Type:</span> {{ preferredCrypto }}
+        </p>
+        <p class="text-sm text-gray-700 mb-6">
+          <span class="font-semibold">Wallet Address:</span>
+          <span class="text-blue-600">{{ walletAddress }}</span>
+        </p>
+        <button
+          @click="handleDeposited"
+          class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 shadow-lg"
+        >
+          I've Sent It
+        </button>
+      </div>
   </div>
+   </div>
 </template>
 
 <script setup>
@@ -74,7 +89,7 @@ import Addresses from '../components/Addresses.vue'
 import { db } from "@/firebase"; // Adjust path
 import { collection, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-
+import { useRouter } from "vue-router";
 
 import { ref } from 'vue'
        const type = ref('')
@@ -82,40 +97,29 @@ import { ref } from 'vue'
        const isNavOpen = ref(false)
        const showAddress = ref(false)
        const address = ref('')
-       
-    
+        const preferredCrypto = ref("bitcoin");
+       const router = useRouter();
+        const walletAddress = ref("");
 function openModal(){
   isNavOpen.value = !isNavOpen.value;
 }
 
-function toggleBtc (){
-   address.value =  "OGHSTARW5663HDGGTS6SBGTED"
-   type.value = 'Bitcoin'
-}
-
-function toggleUsdt (){
-   address.value =  "90tgwybsgtwtwhhujajsgdfet"
-   type.value = 'USDT'
-}
-
-function toggleEth (){
-   address.value =  "wrtsg67289why3tfwtyw662g"
-   type.value = 'Ethereum'
-}
-
-
-
-function handleSubmit (){
-    showAddress.value = !showAddress.value
-    
-   
-}
 
 
 const amountt = ref("");
 
     const handleDeposit = () => {
 
+
+ const walletAddresses = {
+      bitcoin: "bc1qakvyg0mv6c0xacx3p0pyj8vp64zklk46rvgzdz",
+      usdt: "0x12345USDTwalletAddress",
+      ethereum: "0x12345ETHwalletAddress",
+    };
+
+   // Set wallet address dynamically based on selected crypto
+     
+    
 
  if (amountt.value < 200) {
         alert("Minimum deposit is $200.00.");
@@ -126,7 +130,8 @@ const amountt = ref("");
         amount: amount.value,
         crypto: crypto.value
       });
-      showAddress.value = true
+       walletAddress.value = walletAddresses[preferredCrypto.value];
+      showAddress.value = true;
 
     };
 
@@ -141,7 +146,7 @@ const handleDeposited = async () => {
         }
 
         const transaction = {
-          amountt: parseFloat(amount.value),
+          amountt: parseFloat(amountt.value),
           status: "pending",
           type: "deposit",
           userId: user.uid, // Attach user's UID
@@ -151,7 +156,9 @@ const handleDeposited = async () => {
         await addDoc(collection(db, "transaction"), transaction);
 
         amountt.value = "";
-        alert("Deposit successful! Your transaction is pending.");
+        alert("Deposit successful! Your transaction is pending,,, Redirecting to history...");
+         
+      router.push("/history");
       } catch (error) {
         console.error("Error adding deposit: ", error);
         alert("Failed to process deposit. Please try again.");
@@ -162,4 +169,12 @@ const handleDeposited = async () => {
 
    
 </script>
+
+<style scoped>
+header {
+display: flex;
+margin-top: 20px;
+gap: 80%;
+}
+</style>
 

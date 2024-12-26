@@ -57,15 +57,15 @@ v-if='isNavOpen'
   <div class='overview-cont'>
     
   <div class='referral-cont'>
-  <p id='ref-link'>https://arstgdvyyd.com</p>
-  <button id='copy-ref'>Copy Link</button>
+  <p id='ref-link'>{{textToCopy}}</p>
+  <button id='copy-ref' @click='copyToClipboard'>{{buttonText}}</button>
   </div>
   </div>
 <br><br>
   </div>
 </template>
 
-<script>
+<script setup>
 /*<ion-icon name="document-text-outline"></ion-icon>
 <ion-icon name="analytics-outline"></ion-icon>
 */
@@ -73,15 +73,11 @@ import TradingChart from '../components/TradingChart.vue';
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { ref } from 'vue';
-export default {
-   components: {
-    TradingChart,
-    Sidebar,
-    Navbar
-  },
-  setup() {
+  
 
   const isNavOpen = ref(false);
+  const textToCopy = ref("https://investment-club.vercel.app");
+    const buttonText = ref("Copy");
     // Sample data (Time and Value)
     const chartData = ref([
       { time: '2023-10-01', value: 100 },
@@ -92,15 +88,28 @@ export default {
 function openModal(){
   isNavOpen.value = !isNavOpen.value;
 }
-    return {
-      openModal,
-      isNavOpen,
-      chartData,
+
     
-    };
+
+    const copyToClipboard = async () => {
+      try {
+        await navigator.clipboard.writeText(textToCopy.value); // Copy text to clipboard
+        buttonText.value = "Copied!"; // Change button text
+        setTimeout(() => {
+          buttonText.value = "Copy"; // Revert button text after 2 seconds
+        }, 2000);
+      } catch (error) {
+        console.error("Failed to copy text: ", error);
+        buttonText.value = "Error!";
+        setTimeout(() => {
+          buttonText.value = "Copy";
+        }, 2000);
+      }
+
+   
 
   
-} }
+} 
 </script>
 
 <style scoped>

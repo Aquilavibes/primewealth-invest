@@ -127,7 +127,7 @@ const amountt = ref("");
         }
 
         const transaction = {
-          amountt: parseFloat(amount.value),
+          amountt: parseFloat(amountt.value),
           status: "pending",
           type: "withdraw",
           userId: user.uid, // Attach user's UID
