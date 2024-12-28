@@ -43,7 +43,7 @@ const accessCode = ref('')
 const route = useRouter()
 
 const handleRoute = () => {
-  if (accessCode.value == '1964') {
+  if (accessCode.value == 't15689fffr34') {
     route.push('/login')
   } else {
     errMsg.value = 'Wrong access code'
