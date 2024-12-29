@@ -5,7 +5,7 @@
     <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
       <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Sign Up</h2>
       
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="register">
         <!-- Name Input -->
         <div class="mb-4">
           <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>

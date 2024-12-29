@@ -76,7 +76,7 @@ import { ref } from 'vue';
   
 
   const isNavOpen = ref(false);
-  const textToCopy = ref("https://investment-club.vercel.app");
+  const textToCopy = ref("https://investment-club.pro");
     const buttonText = ref("Copy");
     // Sample data (Time and Value)
     const chartData = ref([

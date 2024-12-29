@@ -38,7 +38,7 @@
             class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-<p text-red-500 >{{errMsg}}</p>
+<p class="text-red-500" >{{errMsg}}</p>
         <!-- Login Button -->
         <button
           type="submit"
