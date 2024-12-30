@@ -165,7 +165,7 @@ function openModal(){
 }
 
 .status.success {
-  background-color: #28a745;
+  background-color: orangered;
 }
 
 .status.failed {

@@ -8,11 +8,11 @@
 <Sidebar
 v-if='isNavOpen'
 />
-  <div class='dash-cont lg:ml-12 lg:-mt-5 md:ml-10 md:-mt-4 sm:ml-6 sm:-mt-3 w-full max-w-[1200px] px-4'>
+  <div class='dash-cont lg:ml-12 lg:-mt-5 md:ml-10 md:-mt-4 sm:ml-6 sm:-mt-20 w-full max-w-[1200px] px-4'>
     <br><br><br>
     <p id='before-dash' class='text-md text-gray font-sans'> Home > Dashboard > Home </p><br>
   <h1 class='text-lg font-mono font-semibold text-2xl'>Dashboard</h1><br>
-  <div class="grid lg:grid lg:grid-cols-2 gap-5 lg:grid-rows-2  md:block sm:block">
+  <div class="grid lg:grid lg:grid-cols-2 gap-5 lg:grid-rows-2  md:block sm:block sm:mt-5">
   <div class='acct-balance bg-blue-500 w-200 rounded-xl px-0 pl-5'>
   <p id='avail-balance' class='text-white'>Available Balance</p>
   <p id='balance' class='text-white'>$0.00</p>
