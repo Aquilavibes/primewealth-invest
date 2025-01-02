@@ -8,7 +8,8 @@ import Deposit from '../views/Deposit.vue'
 import ChangePassword from '../views/ChangePassword.vue'
 import History from '../views/History.vue'
 import AiTrading from '../views/AiTrading.vue'
-
+import ForgottenPass from '../views/ForgottenPass.vue'
+import Kyc from '../views/Kyc.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -65,6 +66,16 @@ const router = createRouter({
       path: '/aitrading',
       name: 'aitrading',
       component: AiTrading
+    },
+    {
+      path: '/forgottenpass',
+      name: 'forgottenpass',
+      component: ForgottenPass
+    },
+    {
+      path: '/kyc',
+      name: 'kyc',
+      component: Kyc
     }
   ]
 })

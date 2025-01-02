@@ -47,7 +47,15 @@
           Login
         </button>
       </form>
-
+ <p class="text-sm text-gray-600">
+         Forgot password?
+          <button
+            @click="redirectToForgot"
+            class="text-blue-600 font-medium hover:underline"
+          >
+           Reset
+          </button>
+          </p>
       <!-- Signup Link -->
       <div class="mt-6 text-center">
         <p class="text-sm text-gray-600">
@@ -74,39 +82,50 @@ import { auth } from '@/firebase';
    const password = ref('')   
    const errMsg = ref()
 
-const redirectToSignup =() => {
-    route.push('/signup')
-}
+const redirectToSignup = () => {
+  route.push('/signup');
+};
+
+
+const redirectToForgot = () => {
+  route.push('/forgottenpass');
+};
 
 const login = () => {
-signInWithEmailAndPassword(getAuth(), email.value, password.value)
-.then((data) => {
-alert('You have Successfully signed in')
-route.push('/dashboard')
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email.value, password.value)
+    .then((data) => {
+      const user = data.user;
 
+      if (!user.emailVerified) {
+        alert('Please check your email to verify your account.');
+        return;
+      }
 
-})
+      alert('You have Successfully signed in');
+      route.push('/dashboard');
+    })
+    .catch((error) => {
+      console.log(error.code);
+      switch (error.code) {
+        case 'auth/invalid-email':
+          errMsg.value = 'Invalid email';
+          break;
 
-.catch((error) => {
-    console.log(error.code)
-    switch (error.code) {
-    case "auth/invalid-email":
-    errMsg.value = 'Invalid email';
-    break;
+        case 'auth/user-not-found':
+          errMsg.value = 'No account with this email was found';
+          break;
 
-  case "auth/user-not-found":
-    errMsg.value = 'No account with this email was found';
-    break;  
+        case 'auth/wrong-password':
+          errMsg.value = 'Incorrect password';
+          break;
 
-    case "auth/wrong-password":
-    errMsg.value = 'Incorrect password';
-    break; 
-    default: 
-    errMsg.value = "Email or password was incorrect"; 
-    break;
-    }
-})
-}
+        default:
+          errMsg.value = 'Email or password was incorrect';
+          break;
+      }
+    });
+};
 //return{fullName, email, token, password,register, route}
 </script>
 
