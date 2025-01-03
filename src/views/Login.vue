@@ -1,11 +1,9 @@
 <template>
-
-
-<div class="min-h-screen flex items-center justify-center bg-blue-50 px-4">
+  <div class="min-h-screen flex items-center justify-center bg-gray-900 px-4">
     <!-- Container -->
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md sm:max-w-sm lg:max-w-lg">
+    <div class="bg-gray-800 shadow-lg rounded-lg p-8 w-full max-w-md sm:max-w-sm lg:max-w-lg">
       <!-- Header -->
-      <h1 class="text-2xl font-semibold text-blue-600 text-center mb-6">
+      <h1 class="text-2xl font-semibold text-white text-center mb-6">
         Login
       </h1>
 
@@ -13,7 +11,7 @@
       <form @submit.prevent="login">
         <!-- Email Input -->
         <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+          <label for="email" class="block text-sm font-medium text-gray-300 mb-2">
             Email
           </label>
           <input
@@ -21,13 +19,13 @@
             id="email"
             v-model="email"
             placeholder="Enter your email"
-            class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full border border-gray-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-gray-200"
           />
         </div>
 
         <!-- Password Input -->
         <div class="mb-4">
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+          <label for="password" class="block text-sm font-medium text-gray-300 mb-2">
             Password
           </label>
           <input
@@ -35,10 +33,11 @@
             id="password"
             v-model="password"
             placeholder="Enter your password"
-            class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full border border-gray-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-gray-200"
           />
         </div>
-<p class="text-red-500" >{{errMsg}}</p>
+        <p class="text-red-500">{{ errMsg }}</p>
+
         <!-- Login Button -->
         <button
           type="submit"
@@ -47,22 +46,25 @@
           Login
         </button>
       </form>
- <p class="text-sm text-gray-600">
-         Forgot password?
-          <button
-            @click="redirectToForgot"
-            class="text-blue-600 font-medium hover:underline"
-          >
-           Reset
-          </button>
-          </p>
+
+      <!-- Forgot Password Link -->
+      <p class="text-sm text-gray-400 mt-4">
+        Forgot password?
+        <button
+          @click="redirectToForgot"
+          class="text-blue-500 font-medium hover:underline"
+        >
+          Reset
+        </button>
+      </p>
+
       <!-- Signup Link -->
       <div class="mt-6 text-center">
-        <p class="text-sm text-gray-600">
+        <p class="text-sm text-gray-400">
           Don't have an account?
           <button
             @click="redirectToSignup"
-            class="text-blue-600 font-medium hover:underline"
+            class="text-blue-500 font-medium hover:underline"
           >
             Sign Up
           </button>
@@ -71,6 +73,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup>
 import {ref} from 'vue'

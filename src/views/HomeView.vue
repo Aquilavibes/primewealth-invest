@@ -1,29 +1,29 @@
 <template>
-<div class="min-h-screen flex items-center justify-center bg-blue-50 px-4">
-
+  <div class="min-h-screen flex items-center justify-center bg-gray-900 px-4">
     <!-- Container -->
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md sm:max-w-sm lg:max-w-lg">
+    <div class="bg-gray-800 shadow-lg rounded-lg p-8 w-full max-w-md sm:max-w-sm lg:max-w-lg">
       <!-- Header -->
-      <h1 class="text-2xl font-semibold text-blue-600 text-center mb-6">
-         Kindly Input Your Access Code
+      <h1 class="text-2xl font-semibold text-white text-center mb-6">
+        Kindly Input Your Access Code
       </h1>
 
       <!-- Form -->
       <form @submit.prevent="handleRoute">
         <!-- Access Code Input -->
         <div class="mb-4">
-          <label for="accessCode" class="block text-sm font-medium text-gray-700 mb-2">
-           Input Your Access Code
+          <label for="accessCode" class="block text-sm font-medium text-gray-300 mb-2">
+            Input Your Access Code
           </label>
           <input
             type="text"
             id="accessCode"
             v-model="accessCode"
             placeholder="Enter your access code"
-            class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full border border-gray-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700 text-gray-200"
           />
         </div>
-<p class='text-red-500'>{{errMsg}}</p>
+        <p class="text-red-500">{{ errMsg }}</p>
+
         <!-- Submit Button -->
         <button
           type="submit"
@@ -35,6 +35,7 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref } from 'vue';
 import { useRouter}  from 'vue-router'
@@ -44,7 +45,7 @@ const route = useRouter()
 
 const handleRoute = () => {
   if (accessCode.value == 't15689fffr34') {
-    route.push('/login')
+    route.push('/hero')
   } else {
     errMsg.value = 'Wrong access code'
     route.push('/')
