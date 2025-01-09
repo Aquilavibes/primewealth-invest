@@ -1,10 +1,10 @@
 <template>
  
  <Navbar>
-  <header>
-  <p> Investment Club</p>
-    <ion-icon class='menu' name="menu-outline" @click='openModal'></ion-icon>
-    
+   <header class="bg-black text-blue-500 flex items-center justify-between px-4 py-3 shadow-lg">
+    <p class="text-2xl cursor-pointer">PrimeWealth</p>
+      <ion-icon class=" text-3xl cursor-pointer" name="menu-outline"></ion-icon>
+      
     </header>
 </Navbar><br>
   <section class="bg-black text-white py-12">
@@ -157,11 +157,3 @@ import Navbar from '../components/Navbar.vue';
 import { ref } from 'vue';
 </script>
 
-<style scoped>
-header {
-display: flex;
-margin-top: 20px;
-gap: 80%;
-
-}
-</style>

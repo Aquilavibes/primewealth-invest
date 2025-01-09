@@ -1,47 +1,46 @@
 <template>
-<Navbar>
-  <header>
-    <ion-icon class='menu' name="menu-outline" @click='openModal'></ion-icon>
-    <ion-icon class='profile' name="person-circle-outline"></ion-icon>
+  <Navbar>
+    <header class="bg-black text-blue-500 flex items-center justify-between px-5 py-3 shadow-lg h-30">
+      <ion-icon class="menu text-2xl cursor-pointer" name="menu-outline" @click="openModal"></ion-icon>
+      <ion-icon class="profile text-3xl cursor-pointer" name="person-circle-outline"></ion-icon>
     </header>
-</Navbar><br>
-<Sidebar
-v-if='isNavOpen'
-/>
+  </Navbar>
+  <br />
+  <Sidebar v-if="isNavOpen" />
 
+  <div class="min-h-screen flex items-center justify-center bg-black">
+    <div class="bg-black shadow-lg rounded-lg p-8 w-full max-w-md border border-blue-700">
+      <h2 class="text-2xl font-bold text-center text-blue-500 mb-6">Make a Deposit</h2>
 
-   <div class="min-h-screen flex items-center justify-center bg-blue-50">
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-      <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Make a Deposit</h2>
-      
-      <hr class="mb-6">
+      <hr class="mb-6 border-blue-700" />
 
-      <p class="text-sm text-gray-600 text-center mb-6">Your minimum deposit is <span class="font-semibold text-blue-600">$200.00</span></p>
+      <p class="text-sm text-blue-300 text-center mb-6">
+        Your minimum deposit is <span class="font-semibold text-blue-500">$200.00</span>
+      </p>
 
       <form @submit.prevent="handleDeposit">
         <!-- Amount Input -->
         <div class="mb-4">
-          <label for="input-amnt" class="block text-sm font-medium text-gray-700">Amount (USD)</label>
+          <label for="input-amnt" class="block text-sm font-medium text-blue-300">Amount (USD)</label>
           <input
             type="number"
             id="input-amnt"
             v-model="amountt"
             placeholder="Input Amount in USD"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-blue-700 bg-black text-blue-500 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
         <!-- Crypto Preference -->
         <div class="mb-6">
-          <label for="crypto-pref" class="block text-sm font-medium text-gray-700">Preferred Crypto</label>
+          <label for="crypto-pref" class="block text-sm font-medium text-blue-300">Preferred Crypto</label>
           <select
             id="crypto-pref"
             v-model="crypto"
             required
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-blue-700 bg-black text-blue-500 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="bitcoin">Bitcoin</option>
-    
           </select>
         </div>
 
@@ -54,21 +53,22 @@ v-if='isNavOpen'
         </button>
       </form>
     </div>
+
     <div
       v-if="showAddress"
       class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
     >
-      <div class="bg-white rounded-lg p-8 w-full max-w-sm shadow-lg">
-        <h3 class="text-lg font-bold text-center text-blue-600 mb-4">Confirm Deposit</h3>
-        <p class="text-sm text-gray-700 mb-4">
+      <div class="bg-black rounded-lg p-8 w-full max-w-sm shadow-lg border border-blue-700">
+        <h3 class="text-lg font-bold text-center text-blue-500 mb-4">Confirm Deposit</h3>
+        <p class="text-sm text-blue-300 mb-4">
           <span class="font-semibold">Amount:</span> ${{ amountt }}
         </p>
-        <p class="text-sm text-gray-700 mb-4">
+        <p class="text-sm text-blue-300 mb-4">
           <span class="font-semibold">Type:</span> {{ preferredCrypto }}
         </p>
-        <p class="text-sm text-gray-700 mb-6">
+        <p class="text-sm text-blue-300 mb-6">
           <span class="font-semibold">Wallet Address:</span>
-          <span class="text-blue-600">{{ walletAddress }}</span>
+          <span class="text-blue-500">{{ walletAddress }}</span>
         </p>
         <button
           @click="handleDeposited"
@@ -77,9 +77,10 @@ v-if='isNavOpen'
           I've Sent It
         </button>
       </div>
+    </div>
   </div>
-   </div>
 </template>
+
 
 <script setup>
 import Navbar from '../components/Navbar.vue'
@@ -169,11 +170,5 @@ const handleDeposited = async () => {
    
 </script>
 
-<style scoped>
-header {
-display: flex;
-margin-top: 20px;
-gap: 80%;
-}
-</style>
+
 

@@ -1,51 +1,50 @@
 <template>
-<Navbar>
-    <header>
-    <ion-icon class='menu' name="menu-outline" @click='openModal'></ion-icon>
-    <ion-icon class='profile' name="person-circle-outline"></ion-icon>
+  <Navbar>
+    <header class="bg-black text-blue-500 flex items-center justify-between px-4 py-3 shadow-lg">
+      <ion-icon class="menu text-2xl cursor-pointer" name="menu-outline" @click="openModal"></ion-icon>
+      <ion-icon class="profile text-3xl cursor-pointer" name="person-circle-outline"></ion-icon>
     </header>
-    </Navbar>
-    <Sidebar
-v-if='isNavOpen'
-/>
-  <div class="min-h-screen flex items-center justify-center bg-blue-50">
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-      <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Reset Password</h2>
+  </Navbar>
+  <Sidebar v-if="isNavOpen" />
+
+  <div class="min-h-screen flex items-center justify-center bg-black">
+    <div class="bg-black border border-blue-700 shadow-lg rounded-lg p-8 w-full max-w-md">
+      <h2 class="text-2xl font-bold text-center text-blue-500 mb-6">Reset Password</h2>
 
       <form @submit.prevent="handleChangePassword">
         <!-- Old Password -->
         <div class="mb-4">
-          <label for="old-password" class="block text-sm font-medium text-gray-700">Old Password</label>
+          <label for="old-password" class="block text-sm font-medium text-blue-300">Old Password</label>
           <input
             type="password"
             id="old-password"
             v-model="oldPassword"
             placeholder="Enter your old password"
-            class="sm:w-10 lg:w-13 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-blue-700 bg-black text-blue-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
         <!-- Confirm Old Password -->
         <div class="mb-4">
-          <label for="confirm-old-password" class="block text-sm font-medium text-gray-700">Confirm Old Password</label>
+          <label for="confirm-old-password" class="block text-sm font-medium text-blue-300">Confirm Old Password</label>
           <input
             type="password"
             id="confirm-old-password"
             v-model="confirmOldPassword"
             placeholder="Re-enter your old password"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-blue-700 bg-black text-blue-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
         <!-- New Password -->
         <div class="mb-6">
-          <label for="new-password" class="block text-sm font-medium text-gray-700">New Password</label>
+          <label for="new-password" class="block text-sm font-medium text-blue-300">New Password</label>
           <input
             type="password"
             id="new-password"
             v-model="newPassword"
             placeholder="Enter your new password"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-blue-700 bg-black text-blue-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
@@ -60,6 +59,7 @@ v-if='isNavOpen'
     </div>
   </div>
 </template>
+
 
 <script>
 import Navbar from '../components/Navbar.vue'

@@ -1,43 +1,42 @@
 <template>
-<Navbar>
-  <header>
-    <ion-icon class='menu' name="menu-outline" @click='openModal'></ion-icon>
-    <ion-icon class='profile' name="person-circle-outline"></ion-icon>
+  <Navbar>
+    <header class="bg-black text-blue-500 flex items-center justify-between px-4 py-3 shadow-lg">
+      <ion-icon class="menu text-2xl cursor-pointer" name="menu-outline" @click="openModal"></ion-icon>
+      <ion-icon class="profile text-3xl cursor-pointer" name="person-circle-outline"></ion-icon>
     </header>
-</Navbar>
-<Sidebar
-v-if='isNavOpen'
-/>
-   <div class="min-h-screen flex items-center justify-center bg-blue-50">
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-      <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Make a Withdrawal</h2>
-      
-      <hr class="mb-6">
+  </Navbar>
+  <Sidebar v-if="isNavOpen" />
 
-      <p class="text-sm text-gray-600 text-center mb-6">
-        Your minimum withdrawal amount is <span class="font-semibold text-blue-600">$200.00</span>
+  <div class="min-h-screen flex items-center justify-center bg-black">
+    <div class="bg-black shadow-lg rounded-lg p-8 w-full max-w-md border border-blue-700">
+      <h2 class="text-2xl font-bold text-center text-blue-500 mb-6">Make a Withdrawal</h2>
+
+      <hr class="mb-6 border-blue-700" />
+
+      <p class="text-sm text-blue-300 text-center mb-6">
+        Your minimum withdrawal amount is <span class="font-semibold text-blue-500">$200.00</span>
       </p>
 
       <form @submit.prevent="handleWithdraw">
         <!-- Amount Input -->
         <div class="mb-4">
-          <label for="amount" class="block text-sm font-medium text-gray-700">Amount (USD)</label>
+          <label for="amount" class="block text-sm font-medium text-blue-300">Amount (USD)</label>
           <input
             type="number"
             id="amount"
             v-model="amountt"
             placeholder="Enter Withdrawal Amount in USD"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-blue-700 bg-black text-blue-500 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
         <!-- Withdrawal Type -->
         <div class="mb-4">
-          <label for="withdrawal-options" class="block text-sm font-medium text-gray-700">Withdrawal Type</label>
+          <label for="withdrawal-options" class="block text-sm font-medium text-blue-300">Withdrawal Type</label>
           <select
             id="withdrawal-options"
             v-model="withdrawalType"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-blue-700 bg-black text-blue-500 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="crypto">Crypto</option>
           </select>
@@ -45,11 +44,11 @@ v-if='isNavOpen'
 
         <!-- Preferred Wallet -->
         <div class="mb-4">
-          <label for="wallet-options" class="block text-sm font-medium text-gray-700">Preferred Wallet</label>
+          <label for="wallet-options" class="block text-sm font-medium text-blue-300">Preferred Wallet</label>
           <select
             id="wallet-options"
             v-model="wallet"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-blue-700 bg-black text-blue-500 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="bitcoin">Bitcoin</option>
             <option value="ethereum">Ethereum</option>
@@ -59,13 +58,13 @@ v-if='isNavOpen'
 
         <!-- Wallet Address -->
         <div class="mb-6">
-          <label for="address" class="block text-sm font-medium text-gray-700">Wallet Address</label>
+          <label for="address" class="block text-sm font-medium text-blue-300">Wallet Address</label>
           <input
             type="text"
             id="address"
             v-model="walletAddress"
             placeholder="Input your Wallet address"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-blue-700 bg-black text-blue-500 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
@@ -80,8 +79,8 @@ v-if='isNavOpen'
     </div>
   </div>
 
-    <br>
-<br>
+  <br>
+  <br>
 </template>
 
 <script setup>

@@ -1,52 +1,52 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-blue-50">
-    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-      <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">Sign Up</h2>
+  <div class="min-h-screen flex items-center justify-center bg-gray-900">
+    <div class="bg-gray-800 shadow-lg rounded-lg p-8 w-full max-w-md">
+      <h2 class="text-2xl font-bold text-center text-white mb-6">Sign Up</h2>
 
       <form @submit.prevent="register">
         <!-- Full Name Input -->
         <div class="mb-4">
-          <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+          <label for="name" class="block text-sm font-medium text-gray-300">Full Name</label>
           <input
             type="text"
             id="name"
             v-model="name"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-gray-700 shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-gray-200"
             placeholder="Enter your full name"
           />
         </div>
 
         <!-- Email Input -->
         <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
           <input
             type="email"
             id="email"
             v-model="email"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-gray-700 shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-gray-200"
             placeholder="Enter your email"
           />
         </div>
 
         <!-- Phone Number Input -->
         <div class="mb-4">
-          <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+          <label for="phone" class="block text-sm font-medium text-gray-300">Phone Number</label>
           <input
             type="text"
             id="phone"
             v-model="phone"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-gray-700 shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-gray-200"
             placeholder="Enter your phone number"
           />
         </div>
 
         <!-- Country Selector -->
         <div class="mb-4">
-          <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+          <label for="country" class="block text-sm font-medium text-gray-300">Country</label>
           <select
             id="country"
             v-model="country"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-gray-700 shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-gray-200"
           >
             <option value="" disabled>Select your country</option>
             <option value="USA">USA</option>
@@ -58,24 +58,24 @@
 
         <!-- Address Line Input -->
         <div class="mb-4">
-          <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+          <label for="address" class="block text-sm font-medium text-gray-300">Address</label>
           <input
             type="text"
             id="address"
             v-model="address"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-gray-700 shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-gray-200"
             placeholder="Enter your address"
           />
         </div>
 
         <!-- Password Input -->
         <div class="mb-6">
-          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <label for="password" class="block text-sm font-medium text-gray-300">Password</label>
           <input
             type="password"
             id="password"
             v-model="password"
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            class="mt-1 block w-full rounded-md border-gray-700 shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-700 text-gray-200"
             placeholder="Enter your password"
           />
         </div>
@@ -91,6 +91,7 @@
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref } from 'vue';

@@ -11,6 +11,9 @@ import AiTrading from '../views/AiTrading.vue'
 import ForgottenPass from '../views/ForgottenPass.vue'
 import Kyc from '../views/Kyc.vue'
 import Hero from '../views/Hero.vue'
+import panel from '@/views/admin/panel.vue'
+import depositApproval from '@/views/admin/depositApproval.vue'
+import kycApproval from '@/views/admin/kycApproval.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -82,7 +85,22 @@ const router = createRouter({
       path: '/hero',
       name: 'hero',
       component: Hero
-    }
+    },
+    {
+      path: '/panel',
+      name: 'panel',
+      component: panel
+    },
+    {
+      path: '/depositapproval',
+      name: 'depositapproval',
+      component: depositApproval
+    },{
+      path: '/kycapproval',
+      name: 'kycapproval',
+      component: kycApproval
+    },
+
   ]
 })
 

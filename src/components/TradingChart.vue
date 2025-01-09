@@ -70,6 +70,6 @@ export default {
   height: 100%;
   box-shadow: #000 0px 0px 3px;
   border-radius: 10px;
-  background-color:rgb(58, 58, 58);
+  background-color:black;
 }
 </style>
