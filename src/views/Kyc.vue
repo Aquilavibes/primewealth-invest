@@ -112,7 +112,7 @@ export default {
           phoneNumber: phoneNumber.value,
           documentFile: documentBase64.value, // Save Base64 string
           createdAt: serverTimestamp(),
-          status: 'In Review',
+          status: 'In Revieww',
         });
 
         alert('KYC submitted successfully.');
