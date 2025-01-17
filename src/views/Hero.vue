@@ -1,16 +1,32 @@
 <template>
  
  <Navbar>
-   <header class="bg-black text-blue-500 flex items-center justify-between px-4 py-3 shadow-lg">
-    <p class="text-2xl cursor-pointer">PrimeWealth</p>
-      <ion-icon class=" text-3xl cursor-pointer" name="menu-outline"></ion-icon>
-      
-    </header>
+    <header>
+    <!-- Logo Section -->
+    <p>PrimeWealth</p>
+
+    <!-- Hamburger Icon -->
+    <span class="menu-icon" @click='openSide'>&#9776;</span> <!-- Unicode for Hamburger -->
+  </header>
+
 </Navbar><br>
+
+<div class='sidebar' v-if='isSideOpen'>
+  
+  
+  <a href='#home' id='sidee' @click='openSide'>Home</a><br>
+  <a href='#about' id='sidee' @click='openSide'>About Us</a><br>
+  <a href='#contact' id='sidee' @click='openSide'>Contact</a><br>
+  <RouterLink to='/login' id='sidee' @click='openSide'>Signin</RouterLink><br>
+<RouterLink to='/signup' id='sidee' @click='openSide'>SignUp</RouterLink>
+ 
+      
+  </div>
+  
   <section class="bg-black text-white py-12">
   
     <div class="container mx-auto text-center">
-      <h1 class="text-4xl lg:text-6xl font-bold mb-6">Empower Your Investments with AI Crypto Trading</h1>
+      <h1 class="text-4xl lg:text-6xl font-bold mb-6" data-aos="fade-right">Empower Your Investments with AI Crypto Trading</h1>
       <p class="text-lg lg:text-xl mb-8">
         Harness the power of artificial intelligence in your crypto trading. Optimize your portfolio with precision and confidence.
       </p>
@@ -23,7 +39,7 @@
         </button>
       </div>
       <img
-        src="https://via.placeholder.com/600x300"
+        src="../assets/trading.png"
         alt="Chart example"
         class="mt-12 mx-auto rounded-lg shadow-lg"
       />
@@ -94,7 +110,7 @@
 
         <!-- Lite Robot Package -->
         <div class="bg-gray-900 p-6 rounded-lg shadow-lg max-w-md mx-auto mb-12" data-aos="flip-up">
-          <h2 class="text-xl font-bold text-center mb-4">Lite Robot</h2>
+          <h2 class="text-xl font-bold text-center mb-4">Starter Robot</h2>
           <ul class="space-y-4">
             <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up">
               <span class="text-gray-400">ROI</span>
@@ -114,11 +130,97 @@
             </li>
             <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="400">
               <span class="text-gray-400">Minimum Deposit</span>
-              <span class="font-semibold">USDT 200</span>
+              <span class="font-semibold">USD 5,000</span>
             </li>
             <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="500">
               <span class="text-gray-400">Maximum Deposit</span>
-              <span class="font-semibold">USDT 1,999</span>
+              <span class="font-semibold">USD 10,999</span>
+            </li>
+          </ul>
+          <!-- Get Started Button -->
+          <div class="mt-6 text-center" data-aos="fade-up" data-aos-delay="600">
+            <button class="text-blue-500 hover:text-blue-600 font-semibold flex items-center justify-center space-x-1">
+              <span>Get Started</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M10.293 15.707a1 1 0 010-1.414L13.586 11H3a1 1 0 110-2h10.586l-3.293-3.293a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+         
+          <div class="bg-gray-900 p-6 rounded-lg shadow-lg max-w-md mx-auto mb-12" data-aos="flip-up">
+           <h2 class="text-xl font-bold text-center mb-4">Lite Robot</h2>
+          <ul class="space-y-4">
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up">
+              <span class="text-gray-400">ROI</span>
+              <span class="font-semibold">5%</span>
+            </li>
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="100">
+              <span class="text-gray-400">Duration</span>
+              <span class="font-semibold">30 Days</span>
+            </li>
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="200">
+              <span class="text-gray-400">Affiliate Bonus</span>
+              <span class="font-semibold">10.00%</span>
+            </li>
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="300">
+              <span class="text-gray-400">Risk Ratio</span>
+              <span class="font-semibold">30%</span>
+            </li>
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="400">
+              <span class="text-gray-400">Minimum Deposit</span>
+              <span class="font-semibold">USD 10,000</span>
+            </li>
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="500">
+              <span class="text-gray-400">Maximum Deposit</span>
+              <span class="font-semibold">USD 20,000</span>
+            </li>
+          </ul>
+          <!-- Get Started Button -->
+          <div class="mt-6 text-center" data-aos="fade-up" data-aos-delay="600">
+            <button class="text-blue-500 hover:text-blue-600 font-semibold flex items-center justify-center space-x-1">
+              <span>Get Started</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M10.293 15.707a1 1 0 010-1.414L13.586 11H3a1 1 0 110-2h10.586l-3.293-3.293a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+          <div class="bg-gray-900 p-6 rounded-lg shadow-lg max-w-md mx-auto mb-12" data-aos="flip-up">
+           <h2 class="text-xl font-bold text-center mb-4">Premium Robot</h2>
+          <ul class="space-y-4">
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up">
+              <span class="text-gray-400">ROI</span>
+              <span class="font-semibold">10%</span>
+            </li>
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="100">
+              <span class="text-gray-400">Duration</span>
+              <span class="font-semibold">50 Days</span>
+            </li>
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="200">
+              <span class="text-gray-400">Affiliate Bonus</span>
+              <span class="font-semibold">20.00%</span>
+            </li>
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="300">
+              <span class="text-gray-400">Risk Ratio</span>
+              <span class="font-semibold">50%</span>
+            </li>
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="400">
+              <span class="text-gray-400">Minimum Deposit</span>
+              <span class="font-semibold">USD 15,000</span>
+            </li>
+            <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up" data-aos-delay="500">
+              <span class="text-gray-400">Maximum Deposit</span>
+              <span class="font-semibold">USD 50,000</span>
             </li>
           </ul>
           <!-- Get Started Button -->
@@ -137,23 +239,116 @@
         </div>
 
         <!-- About Us Section -->
-        <div class="bg-gray-800 py-12" data-aos="fade-up">
+        <div class="bg-gray-800 py-12" data-aos="fade-up" id='about'>
           <div class="container mx-auto text-center">
             <h2 class="text-2xl font-bold mb-4">About Us</h2>
             <p class="text-lg leading-relaxed max-w-2xl mx-auto">
               We are a team of passionate innovators and trading enthusiasts committed to empowering our users with the tools, knowledge, and confidence to navigate the financial markets. Our mission is to make trading accessible and profitable for everyone by combining cutting-edge AI technology with user-friendly solutions.
             </p>
+
           </div>
+        
+          
         </div>
-      </div>
+         <br><br> 
+         <h1 class='text-center text-2xl font-bold mb-4'>Company Address Details</h1>
+         <img src='../assets/executive.JPG'  class="mt-12 mx-auto rounded-lg shadow-lg lg:w-90 lg:h-100 sm:w-90 sm:h-100"
+      />
+      <p class='text-center text-2xl mb-4'> City, State, Zip: Miami, Florida(FL), 33139</p>
+      
+               </div>
+      
     </section>
+    
   </div>
+  
     </div>
+    
+   
   </section>
+
+  
 </template>
 
 <script setup>
 import Navbar from '../components/Navbar.vue';
 import { ref } from 'vue';
+
+const isSideOpen = ref(false)
+
+const openSide = () => {
+  isSideOpen.value = !isSideOpen.value
+}
 </script>
 
+<style scoped>
+#sidee {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 20px;
+  margin-left: 30px;
+}
+.sidebar {
+  background-color: black;
+  border-radius: 10px;
+  box-shadow: #eee 0px 0px 10px;
+  margin-left: 210px;
+  margin-top: -10px;
+  width:  150px;
+  height: 250px;
+  position: fixed;
+  display: block;
+  gap: 30%;
+  padding-top: 30px;
+  z-index: 1000;
+}
+ * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: black;
+      color: #3b82f6; /* Blue color */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    header p {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Hamburger Icon Styles */
+    .menu-icon {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #3b82f6; /* Blue color */
+    }
+
+    /* Responsive Behavior (Optional for Toggling) */
+    @media (max-width: 768px) {
+      header {
+        padding: 0.8rem 1.2rem;
+      }
+
+      header p {
+        font-size: 1.3rem;
+      }
+
+      .menu-icon {
+        font-size: 1.8rem;
+        margin-left: -100px
+      }
+    }
+</style>
