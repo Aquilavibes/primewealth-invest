@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import { fileURLToPath, URL } from 'url';
+import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
   plugins: [vue()],
@@ -17,12 +17,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true
-  },
-  assetsInclude: ['**/*.{JPG,jpg,jpeg,png,svg,gif}'], // Support multiple image formats
-  optimizeDeps: {
-    esbuildOptions: {
-      target: 'esnext'
-    }
   }
-});
+  }
+);
 
