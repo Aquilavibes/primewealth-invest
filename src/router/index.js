@@ -14,6 +14,7 @@ import Hero from '../views/Hero.vue'
 import panel from '@/views/admin/panel.vue'
 import depositApproval from '@/views/admin/depositApproval.vue'
 import kycApproval from '@/views/admin/kycApproval.vue'
+import CustomerCare from '../views/CustomerCare.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -95,12 +96,17 @@ const router = createRouter({
       path: '/depositapproval',
       name: 'depositapproval',
       component: depositApproval
-    },{
+    },
+    {
       path: '/kycapproval',
       name: 'kycapproval',
       component: kycApproval
     },
-
+    {
+      path: '/customercare',
+      name: 'customercare',
+      component: CustomerCare
+    }
   ]
 })
 

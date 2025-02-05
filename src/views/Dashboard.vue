@@ -16,7 +16,7 @@
       <!-- Account Balance -->
       <div class="acct-balance bg-blue-700 rounded-xl p-5 shadow-md">
         <p id="avail-balance" class="text-white">Available Balance</p>
-        <p id="balance" class="text-white text-xl font-bold">$0.00</p>
+        <p id="balance" class="text-white text-xl font-bold">${{ balanceState.balance }}</p>
       </div>
 
       <!-- Bonus Earned -->
@@ -82,7 +82,7 @@ import TradingChart from '../components/TradingChart.vue';
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { ref } from 'vue';
-  
+  import { balanceState } from '@/GlobalState';
 
   const isNavOpen = ref(false);
   const textToCopy = ref("https://investment-club.pro");

@@ -1,16 +1,20 @@
 <template>
-<Navbar>
-  <header>
-    <ion-icon class='menu' name="menu-outline" @click='openModal'></ion-icon>
-    <ion-icon class='profile' name="person-circle-outline"></ion-icon>
+  <Navbar>
+    <header class="bg-black text-blue-500 flex items-center justify-between px-5 py-3 shadow-lg h-30">
+      <ion-icon class="menu text-2xl cursor-pointer" name="menu-outline" @click="openModal"></ion-icon>
+      <ion-icon class="profile text-3xl cursor-pointer" name="person-circle-outline"></ion-icon>
     </header>
-</Navbar><br>
+  </Navbar>
+  <br />
 
-<Sidebar
-v-if='isNavOpen'
-/>
+  <Sidebar v-if="isNavOpen" />
 
-   <div class="transaction-container">
+  <div class="transaction-container">
+    <button 
+      class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      @click="navigateToDashboard">
+      Back to Dashboard
+    </button><br> 
     <h3 class="table-title">Transaction History</h3>
     <div class="table-wrapper">
       <table class="transaction-table">
@@ -24,18 +28,20 @@ v-if='isNavOpen'
           </tr>
         </thead>
         <tbody>
-          <!-- Example rows for layout -->
-          <tr v-for="tran in transactions" :key="tran.id">
-            <td>*</td>
+          <tr v-for="(tran, index) in transactions" :key="tran.id">
+            <td>{{ index + 1 }}</td>
             <td>{{ tran.type }}</td>
             <td>${{ tran.amountt }}</td>
             <td>{{ tran.createdAt }}</td>
-            
             <td>
-              <span class="status success">{{ tran.status }}</span>
+              <span :class="{
+      'bg-green-500 text-white': tran.status === 'Success',
+      'bg-red-500': tran.status === 'Pending'
+    }">
+                {{ tran.status }}
+              </span>
             </td>
           </tr>
-         
         </tbody>
       </table>
     </div>
@@ -43,55 +49,73 @@ v-if='isNavOpen'
 </template>
 
 <script setup>
-import Navbar from '../components/Navbar.vue'
-import Sidebar from '../components/Sidebar.vue'
-import { db } from '@/firebase'
+import Navbar from "../components/Navbar.vue";
+import Sidebar from "../components/Sidebar.vue";
+import { db } from "@/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { format } from "date-fns";
+import { balanceState } from "@/GlobalState";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
+const transactions = ref([]);
+const isNavOpen = ref(false);
+const router = useRouter();
 
-import { ref, onMounted } from 'vue'
+const auth = getAuth();
+const user = auth.currentUser;
 
- const transactions = ref([]);
-    const auth = getAuth();
-    const user = auth.currentUser;
+const navigateToDashboard = () => {
+  router.push('/dashboard');
+};
 
-    const fetchTransactions = async () => {
-      if (!user) {
-        alert("You must be logged in to view your transactions.");
-        return;
-      }
+const fetchTransactions = async () => {
+  if (!user) {
+    alert("You must be logged in to view your transactions.");
+    return;
+  }
 
-      try {
-        const q = query(
-          collection(db, "transaction"),
-          where("userId", "==", user.uid) // Filter by user UID
-        );
+  try {
+    const q = query(
+      collection(db, "transaction"),
+      where("userId", "==", user.uid) // Filter by user UID
+    );
 
-        const querySnapshot = await getDocs(q);
-        transactions.value = querySnapshot.docs.map((doc) => ({
+    const querySnapshot = await getDocs(q);
+    transactions.value = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+      createdAt: doc.data().createdAt
+        ? format(doc.data().createdAt.toDate(), "yyyy-MM-dd HH:mm:ss")
+        : null,
+    }));
 
-          id: doc.id,
-          ...doc.data(),
-           createdAt: doc.data().createdAt ? format(doc.data().createdAt.toDate(), "yyyy-MM-dd HH:mm:ss") : null,
-        }));
-      } catch (error) {
-        console.error("Error fetching transactions: ", error);
-        alert("Failed to load transactions.");
-      }
-    };
- onMounted(fetchTransactions);
+    // Update global balance with successful transactions
+    const successfulTransactions = transactions.value.filter(
+      (tran) => tran.status === "Success"
+    );
+    const totalAmount = successfulTransactions.reduce(
+      (sum, tran) => sum + (tran.amountt || 0),
+      0
+    );
+    balanceState.balance = totalAmount; // Update global balance directly
+  } catch (error) {
+    console.error("Error fetching transactions: ", error);
+    alert("Failed to load transactions.");
+  }
+};
 
-const isNavOpen = ref(false)
+onMounted(fetchTransactions);
 
-function openModal(){
+function openModal() {
   isNavOpen.value = !isNavOpen.value;
 }
 </script>
 
 <style scoped>
 /* General Container Styles */
+
 .transaction-container {
   max-width: 900px;
   margin: 30px auto;

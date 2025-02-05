@@ -9,7 +9,7 @@
    <RouterLink to='aitrading'><p id='ai-bot'>Buy AI trading bot</p></RouterLink>
    <RouterLink to='/changepassword'><p id='change-pass'> Change Password </p></RouterLink>
       <RouterLink to='/kyc'><p id='kyc'> KYC </p></RouterLink>
-      
+      <RouterLink to='/'><p id='logout'> log Out </p></RouterLink>
   </div>
   
 </template>
@@ -46,20 +46,23 @@ export default defineComponent ({
 </script>
 
 <style scoped>
+#logout {
+  color: red;
+}
 p {
-  color: black;
+  color: white;
   text-align: center;
   font-size: 15px;
   margin-top: 20px;
 }
 .sidebar {
-  background-color: white;
+  background-color: black;
   border-radius: 10px;
-  box-shadow: #000 0px 0px 10px;
+  box-shadow: #eee 0px 0px 10px;
   margin-left: 50px;
   margin-top: -10px;
   width:  200px;
-  height: 350px;
+  height: 400px;
   position: fixed;
   gap: 30%;
 }

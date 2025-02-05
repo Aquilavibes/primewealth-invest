@@ -19,6 +19,8 @@
       </p>
 
       <form @submit.prevent="handleDeposit">
+      
+
         <!-- Amount Input -->
         <div class="mb-4">
           <label for="input-amnt" class="block text-sm font-medium text-blue-300">Amount (USD)</label>
@@ -83,92 +85,72 @@
 
 
 <script setup>
-import Navbar from '../components/Navbar.vue'
-import Sidebar from '../components/Sidebar.vue'
-import Addresses from '../components/Addresses.vue'
+import { ref } from 'vue';
+import { getAuth } from 'firebase/auth';
+import { useRouter } from 'vue-router';
 import { db } from "@/firebase"; // Adjust path
 import { collection, addDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { useRouter } from "vue-router";
 
-import { ref } from 'vue'
-       const type = ref('')
-       const amount = ref('')
-       const isNavOpen = ref(false)
-       const showAddress = ref(false)
-       const address = ref('')
-        const preferredCrypto = ref("bitcoin");
-       const router = useRouter();
-        const walletAddress = ref("");
-function openModal(){
-  isNavOpen.value = !isNavOpen.value;
-}
-
-
-
+// Declare reactive variables
 const amountt = ref("");
+const userEmail = ref(""); // You will bind this to the email input field
+const isNavOpen = ref(false);
+const showAddress = ref(false);
+const walletAddress = ref("");
+const preferredCrypto = ref("bitcoin");
+const router = useRouter();
 
-    const handleDeposit = () => {
+// Function to handle deposit
+const handleDeposit = () => {
+  const walletAddresses = {
+    bitcoin: "bc1qakvyg0mv6c0xacx3p0pyj8vp64zklk46rvgzdz",
+    usdt: "0x12345USDTwalletAddress",
+    ethereum: "0x12345ETHwalletAddress",
+  };
 
+  if (amountt.value < 200) {
+    alert("Minimum deposit is $200.00.");
+    return;
+  }
 
- const walletAddresses = {
-      bitcoin: "bc1qakvyg0mv6c0xacx3p0pyj8vp64zklk46rvgzdz",
-      usdt: "0x12345USDTwalletAddress",
-      ethereum: "0x12345ETHwalletAddress",
-    };
-
-   // Set wallet address dynamically based on selected crypto
-     
-    
-
- if (amountt.value < 200) {
-        alert("Minimum deposit is $200.00.");
-        return;
-      }
-      // Handle deposit logic here
-      console.log({
-        amount: amount.value,
-        crypto: crypto.value
-      });
-       walletAddress.value = walletAddresses[preferredCrypto.value];
-      showAddress.value = true;
-
-    };
+  // Set the wallet address dynamically based on selected crypto
+  walletAddress.value = walletAddresses[preferredCrypto.value];
+  showAddress.value = true;
+};
 
 const handleDeposited = async () => {
   try {
-        const auth = getAuth(); // Firebase Auth instance
-        const user = auth.currentUser;
+    const auth = getAuth(); // Firebase Auth instance
+    const user = auth.currentUser;
 
-        if (!user) {
-          alert("You must be logged in to make a deposit.");
-          return;
-        }
+    if (!user) {
+      alert("You must be logged in to make a deposit.");
+      return;
+    }
 
-        const transaction = {
-          amountt: parseFloat(amountt.value),
-          status: "pending",
-          type: "deposit",
-          userId: user.uid, // Attach user's UID
-          createdAt: new Date(), // Add timestamp
-        };
+    const transaction = {
+      amountt: parseFloat(amountt.value),
+      status: "pending",
+      type: "deposit",
+      userId: user.uid, // Attach user's UID
+      createdAt: new Date(), // Add timestamp
+    };
 
-        await addDoc(collection(db, "transaction"), transaction);
-
-        amountt.value = "";
-        alert("Deposit successful! Your transaction is pending,,, Redirecting to history...");
-         
-      router.push("/history");
-      } catch (error) {
-        console.error("Error adding deposit: ", error);
-        alert("Failed to process deposit. Please try again.");
-      }
-}
-
-
+    // Add transaction to Firestore
+    await addDoc(collection(db, "transaction"), transaction);
 
    
+
+    if (data.status === 'success') {
+      amountt.value = "";
+      alert("Deposit successful! Your transaction is pending. Redirecting to history...");
+      router.push("/history");
+    } 
+  } catch (error) {
+    console.error("Error processing deposit: ", error);
+    alert("Failed to process deposit. Please try again.");
+  }
+};
+
+
 </script>
-
-
-

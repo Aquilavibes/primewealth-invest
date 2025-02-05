@@ -11,6 +11,29 @@
 
 </Navbar><br>
 
+ <div
+    v-if="isToastVisible"
+    class="fixed bottom-5 right-5 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-lg flex items-center justify-between"
+  >
+    <div class="flex items-center">
+      <div class="toast-content text-sm font-medium">
+        {{ toastMessage }}
+      </div>
+    </div>
+    <div class="ml-3">
+      <svg
+        class="w-5 h-5 fill-current text-white"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M0 0h24v24H0z" fill="none"></path>
+        <path
+          d="M15.795 8.342l-5.909 9.545a1 1 0 0 1-1.628 0l-3.182-4.909a1 1 0 0 1 1.629-1.165l2.556 3.953L14.165 7.51a1 1 0 0 1 1.63 1.165z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+
 <div class='sidebar' v-if='isSideOpen'>
   
   
@@ -272,10 +295,42 @@
 
 <script setup>
 import Navbar from '../components/Navbar.vue';
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const isSideOpen = ref(false)
+// Toast visibility and message state
+const isToastVisible = ref(false);
+const toastMessage = ref("");
 
+// Random name and amount generator
+const randomNames = ["John", "Sarah", "Michael", "Emily", "Jessica", "Daniel", "Jacob"];
+const getRandomName = () => randomNames[Math.floor(Math.random() * randomNames.length)];
+const getRandomAmount = () => (Math.random() * 1000).toFixed(2); // Generate random amount up to $1000
+
+// Function to generate a random toast message
+const generateToastMessage = () => {
+  const randomName = getRandomName();
+  const randomAmount = getRandomAmount();
+  toastMessage.value = `${randomName} cashed out $${randomAmount} just now!`;
+  isToastVisible.value = true;
+
+  // Hide the toast after 3 seconds
+  setTimeout(() => {
+    isToastVisible.value = false;
+  }, 3000);
+};
+
+// Start interval on component mount
+let interval;
+onMounted(() => {
+  generateToastMessage(); // Show an initial toast message
+  interval = setInterval(generateToastMessage, 10000); // Show every 10 seconds
+});
+
+// Clear interval on component unmount
+onBeforeUnmount(() => {
+  clearInterval(interval);
+});
 const openSide = () => {
   isSideOpen.value = !isSideOpen.value
 }

@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "aos": "^2.3.4",
+    "axios": "^1.7.9",
     "date-fns": "^4.1.0",
     "emailjs-com": "^3.2.0",
     "firebase": "^11.0.1",
     "lightweight-charts": "^4.2.1",
+    "nodemailer": "^6.10.0",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"
   },

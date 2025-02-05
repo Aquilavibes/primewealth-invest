@@ -1,4 +1,14 @@
 <template>
+
+  <Navbar>
+    <header class="bg-black text-blue-500 flex items-center justify-between px-5 py-3 shadow-lg h-30">
+      <ion-icon class="menu text-2xl cursor-pointer" name="menu-outline" @click="openModal"></ion-icon>
+      <ion-icon class="profile text-3xl cursor-pointer" name="person-circle-outline"></ion-icon>
+    </header>
+  </Navbar>
+  <br />
+  <Sidebar v-if="isNavOpen" />
+
   <div class="min-h-screen flex items-center justify-center bg-black px-4">
     <div class="bg-black border border-blue-700 shadow-lg rounded-lg p-8 w-full max-w-md">
       <h1 class="text-2xl font-semibold text-blue-500 text-center mb-6">
