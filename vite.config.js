@@ -8,17 +8,21 @@ import vue from '@vitejs/plugin-vue';
 import { fileURLToPath, URL } from 'url';
 
 export default defineConfig({
-  plugins: [
-    vue(),
-  ],
-  build: {
-    outDir: 'dist'
-  },
-  base: '/',
+  plugins: [vue()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  assetsInclude: ['**/*.JPG']  // Add this line to handle .JPG files properly
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true
+  },
+  assetsInclude: ['**/*.{JPG,jpg,jpeg,png,svg,gif}'], // Support multiple image formats
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'esnext'
+    }
+  }
 });
+
