@@ -55,9 +55,9 @@
       </p>
       <div class="flex justify-center space-x-4">
         <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md">
-          Start Trading
+         <a href='https://t.me/Chrismmcryptopage'> Join Channel</a>
         </button>
-        <button class="bg-transparent border border-blue-500 text-blue-500 px-6 py-3 rounded-md hover:bg-blue-500 hover:text-white">
+        <button class="bg-transparent border border-blue-500 text-blue-500 px-6 py-3 rounded-md hover:bg-blue-500 hover:text-white"  @click='getStart'>
           Get Started
         </button>
       </div>
@@ -275,7 +275,7 @@
         </div>
          <br><br> 
          <h1 class='text-center text-2xl font-bold mb-4'>Company Address Details</h1>
-         <img src='../assets/executive.JPG'  class="mt-12 mx-auto rounded-lg shadow-lg lg:w-90 lg:h-100 sm:w-90 sm:h-100"
+         <img src='../assets/executive.jpg'  class="mt-12 mx-auto rounded-lg shadow-lg lg:w-90 lg:h-100 sm:w-90 sm:h-100"
       />
       <p class='text-center text-2xl mb-4'> City, State, Zip: Miami, Florida(FL), 33139</p>
       
@@ -296,11 +296,20 @@
 <script setup>
 import Navbar from '../components/Navbar.vue';
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { useRouter } from 'vue-router';
 
 const isSideOpen = ref(false)
 // Toast visibility and message state
 const isToastVisible = ref(false);
 const toastMessage = ref("");
+
+const route = useRouter();
+
+const getStart = () => {
+  route.push('/signup')
+}
+
+
 
 // Random name and amount generator
 const randomNames = ["John", "Sarah", "Michael", "Emily", "Jessica", "Daniel", "Jacob"];
