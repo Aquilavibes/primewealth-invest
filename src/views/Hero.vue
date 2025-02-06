@@ -275,8 +275,8 @@
         </div>
          <br><br> 
          <h1 class='text-center text-2xl font-bold mb-4'>Company Address Details</h1>
-         <img src='../assets/executive.jpg'  class="mt-12 mx-auto rounded-lg shadow-lg lg:w-90 lg:h-100 sm:w-90 sm:h-100"
-      />
+         <img src='/executive.jpg' 
+          class="mt-12 mx-auto rounded-lg shadow-lg lg:w-90 lg:h-100 sm:w-90 sm:h-100" />
       <p class='text-center text-2xl mb-4'> City, State, Zip: Miami, Florida(FL), 33139</p>
       
                </div>
