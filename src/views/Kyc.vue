@@ -79,18 +79,23 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import { db } from '@/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import Navbar from "../components/Navbar.vue";
+import Sidebar from "../components/Sidebar.vue";
 
-export default {
-  setup() {
+
     const legalName = ref('');
     const address = ref('');
     const phoneNumber = ref('');
     const documentBase64 = ref('');
+    const isNavOpen = ref(false)
 
+function openModal() {
+  isNavOpen.value = !isNavOpen.value;
+}
     const handleFileUpload = (event) => {
       const file = event.target.files[0];
       if (!file) {
@@ -137,16 +142,7 @@ export default {
       }
     };
 
-    return {
-      legalName,
-      address,
-      phoneNumber,
-      documentBase64,
-      handleFileUpload,
-      submitKYC,
-    };
-  },
-};
+    
 </script>
 
 <style scoped>

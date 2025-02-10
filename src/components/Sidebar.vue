@@ -6,7 +6,7 @@
   <RouterLink to='/deposit'><p id='Deposit'> Deposit</p></RouterLink>
    <RouterLink to='/withdraw'><p id='withdraw'>Withdraw</p></RouterLink>
    <RouterLink to='/history'><p id='history'> History</p></RouterLink>
-   <RouterLink to='aitrading'><p id='ai-bot'>Buy AI trading bot</p></RouterLink>
+   <RouterLink to='aitrading'><p id='ai-bot'>Investment</p></RouterLink>
    <RouterLink to='/changepassword'><p id='change-pass'> Change Password </p></RouterLink>
       <RouterLink to='/kyc'><p id='kyc'> KYC </p></RouterLink>
       <RouterLink to='/'><p id='logout'> log Out </p></RouterLink>

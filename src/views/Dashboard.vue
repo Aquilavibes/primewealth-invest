@@ -16,7 +16,7 @@
       <!-- Account Balance -->
       <div class="acct-balance bg-blue-700 rounded-xl p-5 shadow-md">
         <p id="avail-balance" class="text-white">Available Balance</p>
-        <p id="balance" class="text-white text-xl font-bold">${{ balanceState.balance }}</p>
+        <p id="balance" class="text-white text-xl font-bold">${{ balanceState.balance }}.00</p>
       </div>
 
       <!-- Bonus Earned -->

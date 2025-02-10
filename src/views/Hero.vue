@@ -83,7 +83,7 @@
               <i class="fas fa-robot"></i>
             </div>
             <div>
-              <h3 class="font-semibold">AI Trading Bots</h3>
+              <h3 class="font-semibold">Enhanced Tools</h3>
             </div>
           </div>
           <div class="flex items-center space-x-4" data-aos="fade-left" data-aos-delay="100">
@@ -131,9 +131,9 @@
           </div>
         </div>
 
-        <!-- Lite Robot Package -->
+        <h1 class='text-center text-2xl font-bold mb-4'>Investment Packages</h1>
         <div class="bg-gray-900 p-6 rounded-lg shadow-lg max-w-md mx-auto mb-12" data-aos="flip-up">
-          <h2 class="text-xl font-bold text-center mb-4">Starter Robot</h2>
+          <h2 class="text-xl font-bold text-center mb-4">Starter Package</h2>
           <ul class="space-y-4">
             <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up">
               <span class="text-gray-400">ROI</span>
@@ -176,7 +176,7 @@
         </div>
          
           <div class="bg-gray-900 p-6 rounded-lg shadow-lg max-w-md mx-auto mb-12" data-aos="flip-up">
-           <h2 class="text-xl font-bold text-center mb-4">Lite Robot</h2>
+           <h2 class="text-xl font-bold text-center mb-4">Lite Package</h2>
           <ul class="space-y-4">
             <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up">
               <span class="text-gray-400">ROI</span>
@@ -219,7 +219,7 @@
         </div>
 
           <div class="bg-gray-900 p-6 rounded-lg shadow-lg max-w-md mx-auto mb-12" data-aos="flip-up">
-           <h2 class="text-xl font-bold text-center mb-4">Premium Robot</h2>
+           <h2 class="text-xl font-bold text-center mb-4">Premium Package</h2>
           <ul class="space-y-4">
             <li class="flex justify-between bg-gray-800 p-4 rounded-md" data-aos="fade-up">
               <span class="text-gray-400">ROI</span>
@@ -273,21 +273,104 @@
         
           
         </div>
+        <br><br>
+<h1 class='text-center text-2xl font-bold mb-4'>Testimonials</h1>
+ <div class="bg-black text-white py-10 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <div class="relative overflow-hidden">
+        <div 
+          class="flex transition-transform duration-500 ease-in-out"
+          :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
+        >
+          <div v-for="(testimonial, index) in testimonials" :key="index" class="w-full flex-shrink-0">
+            <div class="flex flex-col items-center">
+              <span class="text-6xl text-gray-400">&#8220;</span>
+              <p class="text-lg italic max-w-xl">{{ testimonial.text }}</p>
+              <div class="mt-4">
+                <img :src="testimonial.image" class="w-16 h-16 rounded-full border-2 border-gray-400" />
+                <p class="mt-2 font-semibold">{{ testimonial.name }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center mt-6 space-x-2">
+        <button 
+          v-for="(testimonial, index) in testimonials" :key="index"
+          class="w-3 h-3 rounded-full" 
+          :class="currentIndex === index ? 'bg-white' : 'bg-gray-500'"
+          @click="currentIndex = index"
+        ></button>
+      </div>
+    </div>
+  </div>
+<br><br>
+ <div class="bg-black text-white py-10 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-6">Top Investors</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div v-for="(investor, index) in investors" :key="index" class="p-6 bg-gray-800 rounded-xl shadow-lg text-center">
+          <img :src="investor.image" class="w-24 h-24 mx-auto rounded-full border-4 border-gray-500 mb-4" />
+          <h3 class="text-xl font-semibold">{{ investor.name }}</h3>
+          <p class="text-gray-400 text-sm mt-2">{{ investor.about }}</p>
+        </div>
+      </div>
+      <div class="mt-8 text-2xl font-bold text-yellow-400">The Bright Minds Behind Success</div>
+    </div>
+  </div>
          <br><br> 
-         <h1 class='text-center text-2xl font-bold mb-4'>Company Address Details</h1>
+         <h1 class='text-center text-2xl font-bold mb-4'>Why Choose Us</h1>
          <img src='/executive.jpg' 
           class="mt-12 mx-auto rounded-lg shadow-lg lg:w-90 lg:h-100 sm:w-90 sm:h-100" />
-      <p class='text-center text-2xl mb-4'> City, State, Zip: Miami, Florida(FL), 33139</p>
-      
+      <p class="text-lg text-center mb-12" data-aos="fade-up" data-aos-delay="200">
+         We Got you covered with well equiped assistance, tools and support such as:
+        </p>
+
+        <!-- Features -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          <div class="flex items-center space-x-4" data-aos="fade-right">
+            <div class="bg-blue-600 text-white p-4 rounded-full">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold">Trading Tools</h3>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4" data-aos="fade-left" data-aos-delay="100">
+            <div class="bg-blue-600 text-white p-4 rounded-full">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold">Customer Support</h3>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4" data-aos="fade-right" data-aos-delay="200">
+            <div class="bg-blue-600 text-white p-4 rounded-full">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold">Investment bonuses</h3>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4" data-aos="fade-left" data-aos-delay="300">
+            <div class="bg-blue-600 text-white p-4 rounded-full">
+              <i class="fas fa-percent"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold">Secured and encrypted transactions</h3>
+            </div>
+          </div>
+        </div>
                </div>
       
+ 
     </section>
     
   </div>
   
     </div>
     
-   
+   <Footer foot='&copy; Copyright <b>PrimeWealth </b> all well reserved' />
   </section>
 
   
@@ -297,11 +380,55 @@
 import Navbar from '../components/Navbar.vue';
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRouter } from 'vue-router';
+import Footer from '../components/Footer.vue' 
 
 const isSideOpen = ref(false)
 // Toast visibility and message state
 const isToastVisible = ref(false);
 const toastMessage = ref("");
+const currentIndex = ref(0); 
+    const investors = ref([
+      {
+        name: 'John Werner',
+        about: 'CEO of PrimaryFX Academy',
+        image: 'https://randomuser.me/api/portraits/men/10.jpg'
+      },
+      {
+        name: 'Warren Buffett',
+        about: 'Investor & Philanthropist',
+        image: 'https://randomuser.me/api/portraits/men/11.jpg'
+      },
+      {
+        name: 'Robin Greg',
+        about: 'Co-founder of Solana/SOL Edu',
+        image: 'https://randomuser.me/api/portraits/men/12.jpg'
+      }
+    ]);
+
+
+    const testimonials = ref([
+      {
+        text: 'This product changed my life! Absolutely fantastic.',
+        name: 'John Doe',
+        image: 'https://randomuser.me/api/portraits/men/1.jpg'
+      },
+      {
+        text: 'I highly recommend this to anyone looking for quality.',
+        name: 'Jane Smith',
+        image: 'https://randomuser.me/api/portraits/women/2.jpg'
+      },
+      {
+        text: 'Five stars! The best purchase I have ever made.',
+        name: 'Alice Brown',
+        image: 'https://randomuser.me/api/portraits/women/3.jpg'
+      }
+    ]);
+
+    onMounted(() => {
+      setInterval(() => {
+        currentIndex.value = (currentIndex.value + 1) % testimonials.value.length;
+      }, 5000);
+    });
 
 const route = useRouter();
 

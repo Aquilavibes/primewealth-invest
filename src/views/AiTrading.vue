@@ -8,8 +8,9 @@
   <Sidebar v-if="isNavOpen" />
 
   <div class="min-h-screen bg-black p-6">
+    <p class='text-center text-blue-500 '>Balance: {{balanceState.balance}}.00</p>
     <h2 class="text-3xl font-bold text-center text-blue-500 mb-8">
-      Buy AI Trading Bot
+    Investment Plans
     </h2>
 
     <!-- Bot Plans -->
@@ -23,10 +24,10 @@
         <p class="text-sm text-blue-300 mb-2">Risk Ratio: Low</p>
         <p class="text-lg font-semibold text-blue-500 mb-4">Price: $1000</p>
         <button
-          @click="purchaseBot('Starter Plan')"
+          @click="purchaseBot1"
           class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg"
         >
-          Purchase
+          Invest
         </button>
       </div>
 
@@ -39,10 +40,10 @@
         <p class="text-sm text-blue-300 mb-2">Risk Ratio: Medium</p>
         <p class="text-lg font-semibold text-blue-500 mb-4">Price: $5000</p>
         <button
-          @click="purchaseBot('Pro Plan')"
+          @click="purchaseBot2"
           class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg"
         >
-          Purchase
+          Invest
         </button>
       </div>
 
@@ -55,44 +56,56 @@
         <p class="text-sm text-blue-300 mb-2">Risk Ratio: High</p>
         <p class="text-lg font-semibold text-blue-500 mb-4">Price: $10000</p>
         <button
-          @click="purchaseBot('Premium Plan')"
+          @click="purchaseBot3"
           class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg"
         >
-          Purchase
+          Invest
         </button>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from "vue";
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-export default {
-    components: {
-    Sidebar,
-    Navbar
-  },
-  setup() {
+import { balanceState } from '@/GlobalState';
+ const inBal = balanceState.balance
     const isNavOpen = ref(false);
 
     function openModal(){
   isNavOpen.value = !isNavOpen.value;
 }
-    
-    const purchaseBot = (plan) => {
-      alert(`Insufficient funds to purchase the ${plan}.`);
-    };
 
+const purchaseBot1 = () => {
+      if (inBal.value >= 10000 ) {
+        inBal.value -= 10000;
+        alert("Investiment Active")
+      } else {
+        alert("Insufficient Funds")
+      }
+    }
 
-    return {
-      purchaseBot,
-       openModal,
-      isNavOpen,
-    };
-  },
-};
+const purchaseBot2 = () => {
+      if (inBal.value >= 10000 ) {
+        inBal.value -= 10000;
+        alert("Investiment Active")
+      } else {
+        alert("Insufficient Funds")
+      }
+    }
+
+    const purchaseBot3 = () => {
+      if (inBal.value >= 10000 ) {
+        inBal.value -= 10000;
+        alert("Investiment Active")
+      } else {
+        alert("Insufficient Funds")
+      }
+    }
+
+   
 </script>
 
 <style>

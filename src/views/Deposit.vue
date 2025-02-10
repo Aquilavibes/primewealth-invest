@@ -90,6 +90,10 @@ import { getAuth } from 'firebase/auth';
 import { useRouter } from 'vue-router';
 import { db } from "@/firebase"; // Adjust path
 import { collection, addDoc } from "firebase/firestore";
+import Navbar from '../components/Navbar.vue';
+import Sidebar from '../components/Sidebar.vue';
+
+
 
 // Declare reactive variables
 const amountt = ref("");
@@ -99,6 +103,11 @@ const showAddress = ref(false);
 const walletAddress = ref("");
 const preferredCrypto = ref("bitcoin");
 const router = useRouter();
+ 
+
+ function openModal(){
+  isNavOpen.value = !isNavOpen.value;
+}
 
 // Function to handle deposit
 const handleDeposit = () => {
