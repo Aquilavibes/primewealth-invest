@@ -52,7 +52,7 @@
 import Navbar from "../components/Navbar.vue";
 import Sidebar from "../components/Sidebar.vue";
 import { db } from "@/firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, onSnapshot } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { format } from "date-fns";
 import { balanceState } from "@/GlobalState";
@@ -60,6 +60,7 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const transactions = ref([]);
+const balance = ref(0); // Local balance state
 const isNavOpen = ref(false);
 const router = useRouter();
 
@@ -67,9 +68,10 @@ const auth = getAuth();
 const user = auth.currentUser;
 
 const navigateToDashboard = () => {
-  router.push('/dashboard');
+  router.push("/dashboard");
 };
 
+// ✅ **Fetch Transactions (Still Works as Before)**
 const fetchTransactions = async () => {
   if (!user) {
     alert("You must be logged in to view your transactions.");
@@ -90,27 +92,38 @@ const fetchTransactions = async () => {
         ? format(doc.data().createdAt.toDate(), "yyyy-MM-dd HH:mm:ss")
         : null,
     }));
-
-    // Update global balance with successful transactions
-    const successfulTransactions = transactions.value.filter(
-      (tran) => tran.status === "Success"
-    );
-    const totalAmount = successfulTransactions.reduce(
-      (sum, tran) => sum + (tran.amountt || 0),
-      0
-    );
-    balanceState.balance = totalAmount; // Update global balance directly
   } catch (error) {
     console.error("Error fetching transactions: ", error);
     alert("Failed to load transactions.");
   }
 };
 
-onMounted(fetchTransactions);
+// ✅ **Real-Time Balance Listener (Fixes Glitch)**
+const fetchBalance = () => {
+  if (!user) return;
+
+  const balanceRef = doc(db, "users", user.uid);
+
+  onSnapshot(balanceRef, (docSnap) => {
+    if (docSnap.exists()) {
+      balance.value = docSnap.data().balance || 0;
+      balanceState.balance = balance.value; // Keep Global State Updated
+    } else {
+      balance.value = 0;
+      balanceState.balance = 0;
+    }
+  });
+};
+
+onMounted(() => {
+  fetchTransactions();
+  fetchBalance();
+});
 
 function openModal() {
   isNavOpen.value = !isNavOpen.value;
 }
+
 </script>
 
 <style scoped>

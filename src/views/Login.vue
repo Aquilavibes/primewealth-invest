@@ -4,7 +4,7 @@
     <div class="bg-gray-800 shadow-lg rounded-lg p-8 w-full max-w-md sm:max-w-sm lg:max-w-lg">
       <!-- Header -->
       <h1 class="text-2xl font-semibold text-white text-center mb-6">
-        Login
+        Log In
       </h1>
 
       <!-- Form -->

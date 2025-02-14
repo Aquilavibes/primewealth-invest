@@ -76,7 +76,7 @@
           @click="handleDeposited"
           class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 shadow-lg"
         >
-          I've Sent It
+          I've Sent Itt
         </button>
       </div>
     </div>
@@ -85,36 +85,31 @@
 
 
 <script setup>
-import { ref } from 'vue';
-import { getAuth } from 'firebase/auth';
-import { useRouter } from 'vue-router';
+import { ref } from "vue";
+import { getAuth } from "firebase/auth";
+import { useRouter } from "vue-router";
 import { db } from "@/firebase"; // Adjust path
-import { collection, addDoc } from "firebase/firestore";
-import Navbar from '../components/Navbar.vue';
-import Sidebar from '../components/Sidebar.vue';
+import { doc, updateDoc, collection, addDoc, getDoc, increment } from "firebase/firestore";
+import { balanceState } from "@/GlobalState.js"; // Import global state
+import Navbar from "../components/Navbar.vue";
+import Sidebar from "../components/Sidebar.vue";
 
-
-
-// Declare reactive variables
+// Reactive variables
 const amountt = ref("");
-const userEmail = ref(""); // You will bind this to the email input field
 const isNavOpen = ref(false);
 const showAddress = ref(false);
 const walletAddress = ref("");
 const preferredCrypto = ref("bitcoin");
 const router = useRouter();
- 
 
- function openModal(){
+function openModal() {
   isNavOpen.value = !isNavOpen.value;
 }
 
-// Function to handle deposit
+// Handle deposit logic
 const handleDeposit = () => {
   const walletAddresses = {
     bitcoin: "bc1qakvyg0mv6c0xacx3p0pyj8vp64zklk46rvgzdz",
-    usdt: "0x12345USDTwalletAddress",
-    ethereum: "0x12345ETHwalletAddress",
   };
 
   if (amountt.value < 200) {
@@ -122,44 +117,48 @@ const handleDeposit = () => {
     return;
   }
 
-  // Set the wallet address dynamically based on selected crypto
   walletAddress.value = walletAddresses[preferredCrypto.value];
   showAddress.value = true;
 };
 
+// Process deposit & update balance in real time
 const handleDeposited = async () => {
   try {
-    const auth = getAuth(); // Firebase Auth instance
+    const auth = getAuth();
     const user = auth.currentUser;
-
     if (!user) {
-      alert("You must be logged in to make a deposit.");
+      alert("You must be logged in.");
       return;
     }
 
     const transaction = {
-      amountt: parseFloat(amountt.value),
+      amount: parseFloat(amountt.value),
       status: "pending",
       type: "deposit",
-      userId: user.uid, // Attach user's UID
-      createdAt: new Date(), // Add timestamp
+      userId: user.uid,
+      createdAt: new Date(),
     };
 
-    // Add transaction to Firestore
-    await addDoc(collection(db, "transaction"), transaction);
+    // Save transaction
+    const docRef = await addDoc(collection(db, "transaction"), transaction);
 
-   
+    // Simulated admin approval (3 sec delay)
+    setTimeout(async () => {
+      await updateDoc(doc(db, "transaction", docRef.id), { status: "Pending" });
 
-    if (data.status === 'success') {
-      amountt.value = "";
-      alert("Deposit successful! Your transaction is pending. Redirecting to history...");
-      router.push("/history");
-    } 
+      // ✅ **Update balance in Firestore**
+      const userBalanceRef = doc(db, "users", user.uid);
+      await updateDoc(userBalanceRef, { balance: increment(transaction.amount) });
+
+      balanceState.balance += transaction.amount; // Keep UI in sync
+    }, 3000);
+
+    alert("Deposit request sent! Your balance will update upon approval.");
+    router.push("/history");
   } catch (error) {
-    console.error("Error processing deposit: ", error);
-    alert("Failed to process deposit. Please try again.");
+    console.error("Deposit Error: ", error);
+    alert("Failed to deposit. Try again.");
   }
 };
-
 
 </script>

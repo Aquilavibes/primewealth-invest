@@ -16,7 +16,7 @@
       <!-- Account Balance -->
       <div class="acct-balance bg-blue-700 rounded-xl p-5 shadow-md">
         <p id="avail-balance" class="text-white">Available Balance</p>
-        <p id="balance" class="text-white text-xl font-bold">${{ balanceState.balance }}.00</p>
+        <p id="balance" class="text-white text-xl font-bold">${{ balance }}.00</p>
       </div>
 
       <!-- Bonus Earned -->
@@ -29,7 +29,7 @@
       <div class="investment-cont border border-blue-600 bg-black rounded-xl p-5 shadow-md">
         <ion-icon class="iconn text-blue-500 text-2xl mb-2" name="document-text-outline"></ion-icon>
         <p id="active-txt" class="text-blue-300">Active Investment</p>
-        <p id="invest-balance" class="text-white text-xl font-bold">$0.00</p>
+        <p id="invest-balance" class="text-white text-xl font-bold">${{ investBalance }}.00</p>
       </div>
 
       <!-- AI Trading Balance -->
@@ -43,7 +43,7 @@
       <div class="profit-cont border border-blue-600 bg-black rounded-xl p-5 shadow-md">
         <ion-icon class="iconn text-blue-500 text-2xl mb-2" name="document-text-outline"></ion-icon>
         <p id="active-txt" class="text-blue-300">Total Profit</p>
-        <p id="profit-balance" class="text-white text-xl font-bold">$0.00</p>
+        <p id="profit-balance" class="text-white text-xl font-bold">${{investBalance}}.00</p>
       </div>
     </div>
     <br>
@@ -81,12 +81,44 @@
 import TradingChart from '../components/TradingChart.vue';
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
-import { ref } from 'vue';
-  import { balanceState } from '@/GlobalState';
+import { ref, onMounted } from 'vue';
+  import { db } from "@/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { balanceState } from "@/GlobalState"; // If using global state
 
   const isNavOpen = ref(false);
-  const textToCopy = ref("https://investment-club.pro");
+  const textToCopy = ref("https://primewealth.vip");
     const buttonText = ref("Copy");
+
+   const balance = ref(0);
+const investBalance = ref(0); // Investment balance
+const auth = getAuth();
+const user = auth.currentUser;
+
+const fetchBalances = () => {
+  if (!user) return;
+
+  const balanceRef = doc(db, "users", user.uid);
+
+  onSnapshot(balanceRef, (docSnap) => {
+    if (docSnap.exists()) {
+      balance.value = docSnap.data().balance || 0;
+      investBalance.value = docSnap.data().investBal || 0; // Fetch investment balance
+
+      //  Update Global State (if needed)
+      balanceState.balance = balance.value;
+      balanceState.investBalance = investBalance.value;
+    } else {
+      balance.value = 0;
+      investBalance.value = 0;
+    }
+  });
+};
+
+onMounted(() => {
+  fetchBalances();
+});
     // Sample data (Time and Value)
     const chartData = ref([
       { time: '2023-10-01', value: 100 },
@@ -99,7 +131,7 @@ function openModal(){
 }
 
     
-
+ 
     const copyToClipboard = async () => {
       try {
         await navigator.clipboard.writeText(textToCopy.value); // Copy text to clipboard

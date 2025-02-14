@@ -19,12 +19,13 @@
       <div class="bg-black shadow-lg rounded-lg p-6 flex flex-col items-center border border-blue-700">
         <h3 class="text-xl font-bold text-blue-500 mb-4">Starter Plan</h3>
         <p class="text-sm text-blue-300 mb-2">ROI: 5%</p>
-        <p class="text-sm text-blue-300 mb-2">Duration: 1 Month</p>
+        <p class="text-sm text-blue-300 mb-2">Duration: 14 Days</p>
         <p class="text-sm text-blue-300 mb-2">Affiliate Bonus: 2%</p>
-        <p class="text-sm text-blue-300 mb-2">Risk Ratio: Low</p>
+        <p class="text-sm text-blue-300 mb-2">Risk Ratio: Loww</p>
         <p class="text-lg font-semibold text-blue-500 mb-4">Price: $1000</p>
         <button
-          @click="purchaseBot1"
+       
+         @click="handleInvestment(1000, 400, 1, 14)"
           class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg"
         >
           Invest
@@ -35,12 +36,12 @@
       <div class="bg-black shadow-lg rounded-lg p-6 flex flex-col items-center border border-blue-700">
         <h3 class="text-xl font-bold text-blue-500 mb-4">Pro Plan</h3>
         <p class="text-sm text-blue-300 mb-2">ROI: 10%</p>
-        <p class="text-sm text-blue-300 mb-2">Duration: 3 Months</p>
+        <p class="text-sm text-blue-300 mb-2">Duration: 20 Days</p>
         <p class="text-sm text-blue-300 mb-2">Affiliate Bonus: 5%</p>
         <p class="text-sm text-blue-300 mb-2">Risk Ratio: Medium</p>
         <p class="text-lg font-semibold text-blue-500 mb-4">Price: $5000</p>
         <button
-          @click="purchaseBot2"
+         @click="handleInvestment(5000, 600, 1, 20)"
           class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg"
         >
           Invest
@@ -51,59 +52,48 @@
       <div class="bg-black shadow-lg rounded-lg p-6 flex flex-col items-center border border-blue-700">
         <h3 class="text-xl font-bold text-blue-500 mb-4">Premium Plan</h3>
         <p class="text-sm text-blue-300 mb-2">ROI: 15%</p>
-        <p class="text-sm text-blue-300 mb-2">Duration: 6 Months</p>
+        <p class="text-sm text-blue-300 mb-2">Duration: 30 Days</p>
         <p class="text-sm text-blue-300 mb-2">Affiliate Bonus: 10%</p>
         <p class="text-sm text-blue-300 mb-2">Risk Ratio: High</p>
         <p class="text-lg font-semibold text-blue-500 mb-4">Price: $10000</p>
         <button
-          @click="purchaseBot3"
+          @click="handleInvestment(10000, 1000, 100, 10)"
           class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg"
         >
           Invest
         </button>
       </div>
     </div>
-  </div>
+ </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { balanceState } from '@/GlobalState';
- const inBal = balanceState.balance
+ 
     const isNavOpen = ref(false);
 
     function openModal(){
   isNavOpen.value = !isNavOpen.value;
 }
+ // Fetch balance & investments when the component loads
+onMounted(() => {
+  balanceState.fetchBalance();
+});
 
-const purchaseBot1 = () => {
-      if (inBal.value >= 10000 ) {
-        inBal.value -= 10000;
-        alert("Investiment Active")
-      } else {
-        alert("Insufficient Funds")
-      }
-    }
+const handleInvestment = (amount, initialInvestBal, dailyIncrement, duration) => {
+  balanceState.invest(amount, initialInvestBal, dailyIncrement, duration);
+ if (balanceState.balance = balanceState.balance--){
+  
+  alert("Investment is now active")
+ } else {
+  alert("insufficient funds to invest")
+ }
+};
 
-const purchaseBot2 = () => {
-      if (inBal.value >= 10000 ) {
-        inBal.value -= 10000;
-        alert("Investiment Active")
-      } else {
-        alert("Insufficient Funds")
-      }
-    }
 
-    const purchaseBot3 = () => {
-      if (inBal.value >= 10000 ) {
-        inBal.value -= 10000;
-        alert("Investiment Active")
-      } else {
-        alert("Insufficient Funds")
-      }
-    }
 
    
 </script>
