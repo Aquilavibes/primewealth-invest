@@ -19,8 +19,6 @@
       </p>
 
       <form @submit.prevent="handleDeposit">
-      
-
         <!-- Amount Input -->
         <div class="mb-4">
           <label for="input-amnt" class="block text-sm font-medium text-blue-300">Amount (USD)</label>
@@ -38,11 +36,13 @@
           <label for="crypto-pref" class="block text-sm font-medium text-blue-300">Preferred Crypto</label>
           <select
             id="crypto-pref"
-            v-model="crypto"
+            v-model="preferredCrypto"
             required
             class="mt-1 block w-full rounded-md border-blue-700 bg-black text-blue-500 shadow-sm focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="bitcoin">Bitcoin</option>
+            <option value="ethereum">Ethereum</option>
+            <option value="usdt">USDT(trx)</option>
           </select>
         </div>
 
@@ -76,25 +76,23 @@
           @click="handleDeposited"
           class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 shadow-lg"
         >
-          I've Sent Itt
+          I've Sent It
         </button>
       </div>
     </div>
   </div>
 </template>
 
-
 <script setup>
 import { ref } from "vue";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "vue-router";
-import { db } from "@/firebase"; // Adjust path
+import { db } from "@/firebase"; 
 import { doc, updateDoc, collection, addDoc, getDoc, increment } from "firebase/firestore";
-import { balanceState } from "@/GlobalState.js"; // Import global state
+import { balanceState } from "@/GlobalState.js";
 import Navbar from "../components/Navbar.vue";
 import Sidebar from "../components/Sidebar.vue";
 
-// Reactive variables
 const amountt = ref("");
 const isNavOpen = ref(false);
 const showAddress = ref(false);
@@ -106,10 +104,11 @@ function openModal() {
   isNavOpen.value = !isNavOpen.value;
 }
 
-// Handle deposit logic
 const handleDeposit = () => {
   const walletAddresses = {
     bitcoin: "bc1qakvyg0mv6c0xacx3p0pyj8vp64zklk46rvgzdz",
+    ethereum: "0x512c561A75d2fDC1955D12e67A794e8F281Ee9FC",
+    usdt: "TYPegEDs10czEPKNwQgv2auWeyFFtvSRm2",
   };
 
   if (amountt.value < 200) {
@@ -121,7 +120,6 @@ const handleDeposit = () => {
   showAddress.value = true;
 };
 
-// Process deposit & update balance in real time
 const handleDeposited = async () => {
   try {
     const auth = getAuth();
@@ -139,18 +137,15 @@ const handleDeposited = async () => {
       createdAt: new Date(),
     };
 
-    // Save transaction
     const docRef = await addDoc(collection(db, "transaction"), transaction);
 
-    // Simulated admin approval (3 sec delay)
     setTimeout(async () => {
       await updateDoc(doc(db, "transaction", docRef.id), { status: "Pending" });
 
-      // ✅ **Update balance in Firestore**
       const userBalanceRef = doc(db, "users", user.uid);
       await updateDoc(userBalanceRef, { balance: increment(transaction.amount) });
 
-      balanceState.balance += transaction.amount; // Keep UI in sync
+      balanceState.balance += transaction.amount;
     }, 3000);
 
     alert("Deposit request sent! Your balance will update upon approval.");
@@ -160,5 +155,4 @@ const handleDeposited = async () => {
     alert("Failed to deposit. Try again.");
   }
 };
-
 </script>

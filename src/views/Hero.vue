@@ -55,7 +55,7 @@
       </p>
       <div class="flex justify-center space-x-4">
         <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md">
-         <a href='https://t.me/Chrismmcryptopage'> Join Channel</a>
+         <a href='https://t.me/WEALTHACADEMY2'> Join Channel</a>
         </button>
         <button class="bg-transparent border border-blue-500 text-blue-500 px-6 py-3 rounded-md hover:bg-blue-500 hover:text-white"  @click='getStart'>
           Get Started
@@ -390,17 +390,17 @@ const currentIndex = ref(0);
     const investors = ref([
       {
         name: 'John Werner',
-        about: 'CEO of PrimaryFX Academy',
+        about: 'Top 1 Investor',
         image: 'https://randomuser.me/api/portraits/men/10.jpg'
       },
       {
         name: 'Warren Buffett',
-        about: 'Investor & Philanthropist',
+        about: 'Top 2 Investor',
         image: 'https://randomuser.me/api/portraits/men/11.jpg'
       },
       {
         name: 'Robin Greg',
-        about: 'Co-founder of Solana/SOL Edu',
+        about: 'Top 3 Investor',
         image: 'https://randomuser.me/api/portraits/men/12.jpg'
       }
     ]);
@@ -408,17 +408,17 @@ const currentIndex = ref(0);
 
     const testimonials = ref([
       {
-        text: 'This product changed my life! Absolutely fantastic.',
-        name: 'John Doe',
+        text: 'Three Years with PrimeWealth and my Investments keep growing.trust them completely!',
+        name: 'Thomas James',
         image: 'https://randomuser.me/api/portraits/men/1.jpg'
       },
       {
-        text: 'I highly recommend this to anyone looking for quality.',
+        text: 'PrimeWealth made Investing simple and stress-free.',
         name: 'Jane Smith',
         image: 'https://randomuser.me/api/portraits/women/2.jpg'
       },
       {
-        text: 'Five stars! The best purchase I have ever made.',
+        text: 'I invested with PrimeWealth and saw my money grow faster than i expected.',
         name: 'Alice Brown',
         image: 'https://randomuser.me/api/portraits/women/3.jpg'
       }
