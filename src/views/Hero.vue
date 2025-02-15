@@ -55,7 +55,9 @@
       </p>
       <div class="flex justify-center space-x-4">
         <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md">
+
          <a href='https://t.me/WEALTHACADEMY2'> Join Channel</a>
+       
         </button>
         <button class="bg-transparent border border-blue-500 text-blue-500 px-6 py-3 rounded-md hover:bg-blue-500 hover:text-white"  @click='getStart'>
           Get Started
