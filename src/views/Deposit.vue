@@ -106,9 +106,9 @@ function openModal() {
 
 const handleDeposit = () => {
   const walletAddresses = {
-    bitcoin: "bc1qakvyg0mv6c0xacx3p0pyj8vp64zklk46rvgzdz",
-    ethereum: "0x512c561A75d2fDC1955D12e67A794e8F281Ee9FC",
-    usdt: "TYPegEDs10czEPKNwQgv2auWeyFFtvSRm2",
+    bitcoin: "bc1qs9ml5gpvl9ctgldtddyy9hczpxe46ckmw77u0g",
+    ethereum: "0x79eD9d644af8830BD491ae1803387Db67E50A9A5",
+    usdt: "THSafjhVcaknCZT9fgKYSB1SYXSkscPN15",
   };
 
   if (amountt.value < 200) {

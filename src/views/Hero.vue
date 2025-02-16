@@ -3,7 +3,7 @@
  <Navbar>
     <header>
     <!-- Logo Section -->
-    <p>PrimeWealth</p>
+    <p>WealthFusion</p>
 
     <!-- Hamburger Icon -->
     <span class="menu-icon" @click='openSide'>&#9776;</span> <!-- Unicode for Hamburger -->
@@ -56,9 +56,7 @@
       <div class="flex justify-center space-x-4">
         <button class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-md">
 
-         <a href='https://t.me/WEALTHACADEMY2'> Join Channel</a>
-       
-        </button>
+         <a href='#'
         <button class="bg-transparent border border-blue-500 text-blue-500 px-6 py-3 rounded-md hover:bg-blue-500 hover:text-white"  @click='getStart'>
           Get Started
         </button>

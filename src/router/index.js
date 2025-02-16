@@ -20,8 +20,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'hero',
+      component: Hero
     },
     {
       path: '/about',
@@ -81,11 +81,6 @@ const router = createRouter({
       path: '/kyc',
       name: 'kyc',
       component: Kyc
-    },
-    {
-      path: '/hero',
-      name: 'hero',
-      component: Hero
     },
     {
       path: '/panel',

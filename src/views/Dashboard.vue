@@ -88,7 +88,7 @@ import { getAuth } from "firebase/auth";
 import { balanceState } from "@/GlobalState"; // If using global state
 
   const isNavOpen = ref(false);
-  const textToCopy = ref("https://primewealth.vip");
+  const textToCopy = ref("https://wealthfusion.com");
     const buttonText = ref("Copy");
 
    const balance = ref(0);
