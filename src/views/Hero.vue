@@ -414,7 +414,7 @@ const currentIndex = ref(0);
         image: 'https://randomuser.me/api/portraits/men/1.jpg'
       },
       {
-        text: Wealth Fusion made Investing simple and stress-free.',
+        text: 'Wealth Fusion made Investing simple and stress-free.',
         name: 'Jane Smith',
         image: 'https://randomuser.me/api/portraits/women/2.jpg'
       },
