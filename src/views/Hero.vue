@@ -371,7 +371,7 @@
   
     </div>
     
-   <Footer foot='&copy; Copyright <b>PrimeWealth </b> all well reserved' />
+   <Footer foot='&copy; Copyright <b>Wealth Fusion</b> all well reserved' />
   </section>
 
   
@@ -409,17 +409,17 @@ const currentIndex = ref(0);
 
     const testimonials = ref([
       {
-        text: 'Three Years with PrimeWealth and my Investments keep growing.trust them completely!',
+        text: 'Three Years with Wealth Fusion and my Investments keep growing.trust them completely!',
         name: 'Thomas James',
         image: 'https://randomuser.me/api/portraits/men/1.jpg'
       },
       {
-        text: 'PrimeWealth made Investing simple and stress-free.',
+        text: Wealth Fusion made Investing simple and stress-free.',
         name: 'Jane Smith',
         image: 'https://randomuser.me/api/portraits/women/2.jpg'
       },
       {
-        text: 'I invested with PrimeWealth and saw my money grow faster than i expected.',
+        text: 'I invested with Wealth Fusion and saw my money grow faster than i expected.',
         name: 'Alice Brown',
         image: 'https://randomuser.me/api/portraits/women/3.jpg'
       }
