@@ -31,7 +31,7 @@
           <tr v-for="(tran, index) in transactions" :key="tran.id">
             <td>{{ index + 1 }}</td>
             <td>{{ tran.type }}</td>
-            <td>${{ tran.amountt }}</td>
+            <td>${{ tran.amount }}</td>
             <td>{{ tran.createdAt }}</td>
             <td>
               <span :class="{
