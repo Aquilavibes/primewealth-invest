@@ -15,6 +15,7 @@
       @click="navigateToDashboard">
       Back to Dashboard
     </button><br> 
+    <p> balance{{balance}}</p>
     <h3 class="table-title">Transaction History</h3>
     <div class="table-wrapper">
       <table class="transaction-table">
@@ -31,7 +32,7 @@
           <tr v-for="(tran, index) in transactions" :key="tran.id">
             <td>{{ index + 1 }}</td>
             <td>{{ tran.type }}</td>
-            <td>${{ tran.amount }}</td>
+            <td>${{ tran.amountt }}</td>
             <td>{{ tran.createdAt }}</td>
             <td>
               <span :class="{

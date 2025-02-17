@@ -100,25 +100,53 @@ const fetchBalances = () => {
   if (!user) return;
 
   const balanceRef = doc(db, "users", user.uid);
-
   onSnapshot(balanceRef, (docSnap) => {
     if (docSnap.exists()) {
       balance.value = docSnap.data().balance || 0;
-      investBalance.value = docSnap.data().investBal || 0; // Fetch investment balance
+      investBalance.value = docSnap.data().investBal || 0;
 
-      //  Update Global State (if needed)
-      balanceState.balance = balance.value;
-      balanceState.investBalance = investBalance.value;
-    } else {
-      balance.value = 0;
-      investBalance.value = 0;
+      balanceState.balance = balance.value; // Sync global state
     }
   });
 };
 
+const fetchTransactions = async () => {
+  if (!user) {
+    alert("You must be logged in to view your transactions.");
+    return;
+  }
+
+  try {
+    const q = query(
+      collection(db, "transaction"),
+      where("userId", "==", user.uid) // Filter by user UID
+    );
+
+    const querySnapshot = await getDocs(q);
+    transactions.value = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+      createdAt: doc.data().createdAt
+        ? format(doc.data().createdAt.toDate(), "yyyy-MM-dd HH:mm:ss")
+        : null,
+    }));
+  } catch (error) {
+    console.error("Error fetching transactions: ", error);
+    
+  }
+};
+
 onMounted(() => {
-  fetchBalances();
+  const unsubscribe = auth.onAuthStateChanged((user) => {
+    if (user) {
+      fetchBalances();
+    } else {
+      console.warn("No authenticated user found.");
+    }
+  });
+ fetchTransactions();
 });
+
     // Sample data (Time and Value)
     const chartData = ref([
       { time: '2023-10-01', value: 100 },

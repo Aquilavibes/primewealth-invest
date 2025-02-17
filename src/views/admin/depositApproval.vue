@@ -26,7 +26,7 @@
         <tbody>
           <tr v-for="tran in transactions" :key="tran.id" class="hover:bg-gray-50">
             <td class="border border-gray-300 px-4 py-2 text-white">{{ tran.id }}</td>
-            <td class="border border-gray-300 px-4 py-2 text-white">${{ tran.amountt }}</td>
+            <td class="border border-gray-300 px-4 py-2 text-white">${{ tran.amount }}</td>
             <td class="border border-gray-300 px-4 py-2 text-white">{{ tran.createdAt }}</td>
              <td class="border border-gray-300 px-4 py-2 text-white">{{ tran.type }}</td>
             <td class="border border-gray-300 px-4 py-2">
@@ -79,15 +79,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue';
 import { db } from '@/firebase';
-import { collection, getDocs, updateDoc, doc, query } from 'firebase/firestore';
+import { collection, getDocs, updateDoc, doc, query, increment } from 'firebase/firestore';
 import { format } from "date-fns";
 import { useRouter } from 'vue-router'
-export default {
-  name: 'DepositApproval',
-  setup() {
+
     const transactions = ref([]);
     const isModalOpen = ref(false);
     const selectedTransaction = ref(null);
@@ -129,21 +127,38 @@ export default {
 
     // Update Transaction
     const updateTransaction = async () => {
-      if (selectedTransaction.value.status !== 'Success') {
-        alert("You can only update the transaction to 'Success'.");
-        return;
-      }
+  if (!selectedTransaction.value || selectedTransaction.value.status !== "Success") {
+    alert("You can only update the transaction to 'Success'.");
+    return;
+  }
 
-      try {
-        const transactionRef = doc(db, 'transaction', selectedTransaction.value.id);
-        await updateDoc(transactionRef, { status: selectedTransaction.value.status });
-        await fetchTransactions();
-        closeModal();
-      } catch (error) {
-        console.error("Error updating transaction: ", error);
-        alert("Failed to update transaction.");
-      }
-    };
+  try {
+    // Update the transaction status
+    const transactionRef = doc(db, "transaction", selectedTransaction.value.id);
+    await updateDoc(transactionRef, { status: "Success" });
+
+    // Ensure the userId exists in the transaction
+    if (!selectedTransaction.value.userId) {
+      console.error("Missing userId in transaction");
+      return;
+    }
+
+    // Update the user's balance atomically
+    const userRef = doc(db, "users", selectedTransaction.value.userId);
+    await updateDoc(userRef, {
+      balance: increment(selectedTransaction.value.amountt),
+    });
+
+    console.log("Transaction updated successfully!");
+    alert("Transaction and balance updated successfully!");
+
+    await fetchTransactions();
+    closeModal();
+  } catch (error) {
+    console.error("Error updating transaction: ", error);
+    alert("Failed to update transaction.");
+  }
+};
 
     // Navigation (placeholder for your router setup)
     const navigateToDashboard = () => {
@@ -153,17 +168,7 @@ export default {
 
     onMounted(fetchTransactions);
 
-    return {
-      transactions,
-      isModalOpen,
-      selectedTransaction,
-      openEditModal,
-      closeModal,
-      updateTransaction,
-      navigateToDashboard
-    };
-  }
-};
+    
 </script>
 
 <style scoped>

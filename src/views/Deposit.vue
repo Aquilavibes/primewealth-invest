@@ -130,7 +130,7 @@ const handleDeposited = async () => {
     }
 
     const transaction = {
-      amount: parseFloat(amountt.value),
+      amountt: parseFloat(amountt.value),
       status: "pending",
       type: "deposit",
       userId: user.uid,
@@ -143,9 +143,9 @@ const handleDeposited = async () => {
       await updateDoc(doc(db, "transaction", docRef.id), { status: "Pending" });
 
       const userBalanceRef = doc(db, "users", user.uid);
-      await updateDoc(userBalanceRef, { balance: increment(transaction.amount) });
+      await updateDoc(userBalanceRef, { balance: increment(transaction.amountt) });
 
-      balanceState.balance += transaction.amount;
+      balanceState.balance += transaction.amountt;
     }, 3000);
 
     alert("Deposit request sent! Your balance will update upon approval.");
