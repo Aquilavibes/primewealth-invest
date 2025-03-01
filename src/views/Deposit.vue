@@ -19,7 +19,6 @@
       </p>
 
       <form @submit.prevent="handleDeposit">
-        <!-- Amount Input -->
         <div class="mb-4">
           <label for="input-amnt" class="block text-sm font-medium text-blue-300">Amount (USD)</label>
           <input
@@ -31,7 +30,6 @@
           />
         </div>
 
-        <!-- Crypto Preference -->
         <div class="mb-6">
           <label for="crypto-pref" class="block text-sm font-medium text-blue-300">Preferred Crypto</label>
           <select
@@ -43,10 +41,10 @@
             <option value="bitcoin">Bitcoin</option>
             <option value="ethereum">Ethereum</option>
             <option value="usdt">USDT(trx)</option>
+            <option value="paypal">Paypal</option>
           </select>
         </div>
 
-        <!-- Submit Button -->
         <button
           type="submit"
           class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-lg"
@@ -56,10 +54,7 @@
       </form>
     </div>
 
-    <div
-      v-if="showAddress"
-      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-    >
+    <div v-if="showAddress" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div class="bg-black rounded-lg p-8 w-full max-w-sm shadow-lg border border-blue-700">
         <h3 class="text-lg font-bold text-center text-blue-500 mb-4">Confirm Deposit</h3>
         <p class="text-sm text-blue-300 mb-4">
@@ -69,7 +64,7 @@
           <span class="font-semibold">Type:</span> {{ preferredCrypto }}
         </p>
         <p class="text-sm text-blue-300 mb-6">
-          <span class="font-semibold">Wallet Address:</span>
+          <span class="font-semibold">Payment Address:</span>
           <span class="text-blue-500">{{ walletAddress }}</span>
         </p>
         <button
@@ -88,8 +83,7 @@ import { ref } from "vue";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "vue-router";
 import { db } from "@/firebase"; 
-import { doc, updateDoc, collection, addDoc, getDoc, increment } from "firebase/firestore";
-import { balanceState } from "@/GlobalState.js";
+import { doc, updateDoc, collection, addDoc } from "firebase/firestore";
 import Navbar from "../components/Navbar.vue";
 import Sidebar from "../components/Sidebar.vue";
 
@@ -108,7 +102,7 @@ const handleDeposit = () => {
   const walletAddresses = {
     bitcoin: "bc1qs9ml5gpvl9ctgldtddyy9hczpxe46ckmw77u0g",
     ethereum: "0x79eD9d644af8830BD491ae1803387Db67E50A9A5",
-    usdt: "THSafjhVcaknCZT9fgKYSB1SYXSkscPN15",
+    paypal: "fennellmicheal01@gmail.com"
   };
 
   if (amountt.value < 200) {
@@ -137,16 +131,7 @@ const handleDeposited = async () => {
       createdAt: new Date(),
     };
 
-    const docRef = await addDoc(collection(db, "transaction"), transaction);
-
-    setTimeout(async () => {
-      await updateDoc(doc(db, "transaction", docRef.id), { status: "Pending" });
-
-      const userBalanceRef = doc(db, "users", user.uid);
-      await updateDoc(userBalanceRef, { balance: increment(transaction.amountt) });
-
-      balanceState.balance += transaction.amountt;
-    }, 3000);
+    await addDoc(collection(db, "transaction"), transaction);
 
     alert("Deposit request sent! Your balance will update upon approval.");
     router.push("/history");

@@ -26,7 +26,7 @@
         <tbody>
           <tr v-for="tran in transactions" :key="tran.id" class="hover:bg-gray-50">
             <td class="border border-gray-300 px-4 py-2 text-white">{{ tran.id }}</td>
-            <td class="border border-gray-300 px-4 py-2 text-white">${{ tran.amount }}</td>
+            <td class="border border-gray-300 px-4 py-2 text-white">${{ tran.amountt }}</td>
             <td class="border border-gray-300 px-4 py-2 text-white">{{ tran.createdAt }}</td>
              <td class="border border-gray-300 px-4 py-2 text-white">{{ tran.type }}</td>
             <td class="border border-gray-300 px-4 py-2">
