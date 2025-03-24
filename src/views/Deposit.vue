@@ -15,7 +15,7 @@
       <hr class="mb-6 border-blue-700" />
 
       <p class="text-sm text-blue-300 text-center mb-6">
-        Your minimum deposit is <span class="font-semibold text-blue-500">$200.00</span>
+        Your minimum deposit is <span class="font-semibold text-blue-500">$10.00</span>
       </p>
 
       <form @submit.prevent="handleDeposit">
@@ -105,8 +105,8 @@ const handleDeposit = () => {
     paypal: "fennellmicheal01@gmail.com"
   };
 
-  if (amountt.value < 200) {
-    alert("Minimum deposit is $200.00.");
+  if (amountt.value < 10) {
+    alert("Minimum deposit is $10.00.");
     return;
   }
 
