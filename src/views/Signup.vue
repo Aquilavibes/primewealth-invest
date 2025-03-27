@@ -97,6 +97,8 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { db } from '@/firebase';
+import { doc, updateDoc, collection, addDoc } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 
 const router = useRouter();
@@ -115,63 +117,34 @@ const register = async () => {
 
     // Send email verification
     await sendEmailVerification(user);
-    alert('Registration successful. Please check your email to verify your account.');
+    
+    // Save user details to Firestore before navigation
+    await addDoc(collection(db, 'peeps'), {
+      name: name.value,
+      email: email.value,  // Added email for reference
+      address: address.value,
+      phone: phone.value,
+      country: country.value, // Include country
+      email: email.value,
+      userId: user.uid,
+    });
 
+    alert('Registration successful. Please check your email to verify your account.');
+    
+    // Reset form fields
+    name.value = '';
+    email.value = '';
+    password.value = '';
+    phone.value = '';
+    country.value = '';
+    address.value = '';
+    email.value = '';
     // Navigate to login page
     router.push('/login');
+
   } catch (error) {
-    console.error(error.code);
+    console.error('Error:', error.code, error.message);
     alert(error.message);
   }
 };
 </script>
-
-<style scoped>
-h1 {
-  margin-left: 70px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: black;
-}
-
-hr {
-  margin-left: -55px;
-  width: 400px;
-}
-
-#signup {
-  width: 250px;
-  height: 30px;
-  border-radius: 20px;
-  margin-left: 20px;
-  color: white;
-  background-color: black;
-}
-
-#login {
-  width: 250px;
-  height: 30px;
-  border-radius: 20px;
-  margin-left: 20px;
-  color: black;
-  font-weight: bold;
-  background-color: white;
-  border: solid black;
-}
-
-input {
-  width: 280px;
-  height: 50px;
-}
-
-.login-signup {
-  padding-top: 30px;
-  margin-left: 500px;
-  background-color: white;
-  box-shadow: 0px 0px 10px #000;
-  width: 350px;
-  height: 700px;
-  padding-left: 55px;
-  margin-top: 35px;
-  padding-bottom: 50px;
-}
-</style>

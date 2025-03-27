@@ -8,6 +8,8 @@
   <br>
   <Sidebar v-if="isNavOpen" />
   <div class="min-h-screen  items-center justify-center bg-gray-900 px-4">
+    <p class="text-[25px] font-mono font-semibold text-blue-500">Welcome, {{ names }} </p>
+    <br><br>
     <p id="before-dash" class="text-md text-blue-300 font-sans mb-4">Home > Dashboard > Home</p>
     <h1 class="text-2xl font-mono font-semibold text-blue-500">Dashboard</h1><br>
 
@@ -83,14 +85,14 @@ import Navbar from '../components/Navbar.vue';
 import Sidebar from '../components/Sidebar.vue';
 import { ref, onMounted } from 'vue';
   import { db } from "@/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+  import { collection, query, where, getDocs, doc, onSnapshot } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { balanceState } from "@/GlobalState"; // If using global state
 
   const isNavOpen = ref(false);
   const textToCopy = ref("https://wealthfusion.com");
     const buttonText = ref("Copy");
-
+    const names = ref([]);
    const balance = ref(0);
 const investBalance = ref(0); // Investment balance
 const auth = getAuth();
@@ -134,7 +136,10 @@ const fetchTransactions = async () => {
     console.error("Error fetching transactions: ", error);
     
   }
+
+  
 };
+
 
 onMounted(() => {
   const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -145,7 +150,34 @@ onMounted(() => {
     }
   });
  fetchTransactions();
+ fetchName()
 });
+
+const fetchName = async () => {
+  if (!user) {
+    alert("You must be logged in");
+    return;
+  }
+
+  try {
+    const q = query(
+      collection(db, "peeps"),
+      where("userId", "==", user.uid) // Filter by user UID
+    );
+
+    const querySnapshot = await getDocs(q);
+    
+    if (!querySnapshot.empty) {
+      names.value = querySnapshot.docs[0].data().name; // Store only the first result
+    } else {
+      console.warn("User name not found in Firestore.");
+      names.value = "User"; // Default name
+    }
+  } catch (error) {
+    console.error("Error fetching name:", error);
+  }
+};
+
 
     // Sample data (Time and Value)
     const chartData = ref([
