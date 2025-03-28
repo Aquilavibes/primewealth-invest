@@ -223,11 +223,6 @@ function openModal(){
 .menu {
   font-size: 30px;
 }
-header {
-display: flex;
-margin-top: 20px;
-gap: 80%;
-}
 
 #before-dash {
   color: rgb(94, 94, 94);
