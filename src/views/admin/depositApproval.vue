@@ -80,71 +80,84 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { db } from '@/firebase';
-import { collection, getDocs, updateDoc, doc, query, increment } from 'firebase/firestore';
+import { ref, onMounted } from "vue";
+import { db } from "@/firebase";
+import {
+  collection,
+  getDocs,
+  updateDoc,
+  doc,
+  query,
+  getDoc,
+  setDoc,
+  increment,
+} from "firebase/firestore";
 import { format } from "date-fns";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
-    const transactions = ref([]);
-    const isModalOpen = ref(false);
-    const selectedTransaction = ref(null);
+const transactions = ref([]);
+const isModalOpen = ref(false);
+const selectedTransaction = ref(null);
+const route = useRouter();
 
-    const route = useRouter();
+// Fetch transactions from Firestore
+const fetchTransactions = async () => {
+  try {
+    const q = query(collection(db, "transaction"));
 
-    
+    const querySnapshot = await getDocs(q);
+    transactions.value = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+      createdAt: doc.data().createdAt
+        ? format(doc.data().createdAt.toDate(), "yyyy-MM-dd HH:mm:ss")
+        : null,
+    }));
+  } catch (error) {
+    console.error("Error fetching transactions: ", error);
+    alert("Failed to load transactions.");
+  }
+};
 
-    // Fetch transactions from Firestore
-    const fetchTransactions = async () => {
-      try {
-        const q = query(
-          collection(db, "transaction"),
-        );
+// Open Edit Modal
+const openEditModal = (transaction) => {
+  selectedTransaction.value = { ...transaction };
+  isModalOpen.value = true;
+};
 
-        const querySnapshot = await getDocs(q);
-        transactions.value = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-          createdAt: doc.data().createdAt ? format(doc.data().createdAt.toDate(), "yyyy-MM-dd HH:mm:ss") : null,
-        }));
-      } catch (error) {
-        console.error("Error fetching transactions: ", error);
-        alert("Failed to load transactions.");
-      }
-    };
+// Close Modal
+const closeModal = () => {
+  isModalOpen.value = false;
+  selectedTransaction.value = null;
+};
 
-    // Open Edit Modal
-    const openEditModal = (transaction) => {
-      selectedTransaction.value = { ...transaction };
-      isModalOpen.value = true;
-    };
-
-    // Close Modal
-    const closeModal = () => {
-      isModalOpen.value = false;
-      selectedTransaction.value = null;
-    };
-
-    // Update Transaction
-    const updateTransaction = async () => {
+// ✅ **Updated Function: Update Transaction and Ensure User Exists**
+const updateTransaction = async () => {
   if (!selectedTransaction.value || selectedTransaction.value.status !== "Success") {
     alert("You can only update the transaction to 'Success'.");
     return;
   }
 
   try {
-    // Update the transaction status
+    // ✅ Update the transaction status
     const transactionRef = doc(db, "transaction", selectedTransaction.value.id);
     await updateDoc(transactionRef, { status: "Success" });
 
-    // Ensure the userId exists in the transaction
+    // ✅ Ensure userId exists
     if (!selectedTransaction.value.userId) {
       console.error("Missing userId in transaction");
       return;
     }
 
-    // Update the user's balance atomically
+    // ✅ Check if user document exists; create it if missing
     const userRef = doc(db, "users", selectedTransaction.value.userId);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      await setDoc(userRef, { balance: 0 }); // Initialize user doc
+    }
+
+    // ✅ Now safely update the balance
     await updateDoc(userRef, {
       balance: increment(selectedTransaction.value.amountt),
     });
@@ -160,17 +173,12 @@ import { useRouter } from 'vue-router'
   }
 };
 
-    // Navigation (placeholder for your router setup)
-    const navigateToDashboard = () => {
-      route.push('/panel')
-      console.log('Navigating to dashboard...');
-    };
 
-    onMounted(fetchTransactions);
+// Navigation (placeholder for your router setup)
+const navigateToDashboard = () => {
+  route.push("/panel");
+  console.log("Navigating to dashboard...");
+};
 
-    
+onMounted(fetchTransactions);
 </script>
-
-<style scoped>
-/* Add custom responsive styles here if needed */
-</style>
