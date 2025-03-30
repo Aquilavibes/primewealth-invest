@@ -1,13 +1,13 @@
 <template>
-  
-  <Sidebar v-if="isNavOpen" />
-  <div class="min-h-screen  items-center justify-center bg-gray-900 px-4">
-    <Navbar>
+   <Navbar>
     <header class=" text-blue-500 flex items-center justify-between px-4 py-3 shadow-lg">
-      <ion-icon class="menu text-3xl cursor-pointer" name="menu-outline" @click="openModal"></ion-icon>
-      <ion-icon class="profile text-3xl cursor-pointer" name="person-circle-outline"></ion-icon>
+      <p class="menu text-3xl cursor-pointer" name="menu-outline" @click="openModal">☰</p>
+      <p class="profile text-3xl cursor-pointer" name="person-circle-outline">👤</p>
     </header>
   </Navbar>
+  <Sidebar v-if="isNavOpen" />
+  <div class="min-h-screen  items-center justify-center bg-gray-900 px-4">
+   
     <p class="text-[25px] font-mono font-semibold text-blue-500">Welcome, {{ names }} </p>
     <br><br>
     <p id="before-dash" class="text-md text-blue-300 font-sans mb-4">Home > Dashboard > Home</p>
