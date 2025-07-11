@@ -1,6 +1,7 @@
 <template>
  
  <Navbar>
+  
     <header>
     <!-- Logo Section -->
     <p>WealthFusion</p>
@@ -45,7 +46,7 @@
  
       
   </div>
-  
+  <BlockedModal />
   <section class="bg-black text-white py-12">
   
     <div class="container mx-auto text-center">
@@ -379,6 +380,7 @@
 
 <script setup>
 import Navbar from '../components/Navbar.vue';
+import BlockedModal from '../components/BlockedModal.vue';
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRouter } from 'vue-router';
 import Footer from '../components/Footer.vue' 
