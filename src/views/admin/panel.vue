@@ -18,6 +18,12 @@
       >
         kyc approval
       </button>
+       </RouterLink><br><br><br>
+       <RouterLink to="/editbalance"> <button
+        class="w-full text-left bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
+        Edit User Details
+      </button>
        </RouterLink>
     </div>
   </div>

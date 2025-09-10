@@ -15,6 +15,7 @@ import panel from '@/views/admin/panel.vue'
 import depositApproval from '@/views/admin/depositApproval.vue'
 import kycApproval from '@/views/admin/kycApproval.vue'
 import CustomerCare from '../views/CustomerCare.vue'
+import editBalance from '@/views/admin/editBalance.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -101,6 +102,11 @@ const router = createRouter({
       path: '/customercare',
       name: 'customercare',
       component: CustomerCare
+    },
+    {
+      path: '/editbalance',
+      name: 'editbalance',
+      component: editBalance
     }
   ]
 })
